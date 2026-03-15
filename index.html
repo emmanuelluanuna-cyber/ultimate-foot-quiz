@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Ultimate Foot Quiz : Légendes Européennes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Flutterwave Inline Checkout -->
+  <script src="https://checkout.flutterwave.com/v3.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #050712;
+      --bg-card: rgba(10, 12, 30, 0.96);
+      --bg-card-soft: rgba(12, 16, 42, 0.96);
+      --accent-mazembe: #ffffff;
+      --accent-mazembe-dark: #141414;
+      --accent-lupopo: #ffd600;
+      --accent-lupopo-soft: #ffed99;
+      --accent-blue: #1d4ed8;
+      --accent-red: #ef4444;
+      --accent-green: #22c55e;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-soft: rgba(148, 163, 184, 0.25);
+      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);
+      --radius-lg: 22px;
+      --radius-md: 14px;
+      --transition-fast: 0.18s ease-out;
+      --transition-normal: 0.25s ease-out;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #0b1022 0, #030712 45%, #000000 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      align-items: stretch;
+      justify-content: center;
+      padding: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    .card {
+      background: linear-gradient(145deg, var(--bg-card), var(--bg-card-soft));
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-soft);
+      padding: 18px 16px 20px;
+      overflow: hidden;
+      position: relative;
+      backdrop-filter: blur(18px);
+    }
+
+    @media (min-width: 480px) {
+      .card {
+        padding: 22px 22px 24px;
+      }
+    }
+
+    /* Header / Hero */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .hero-main {
+      flex: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(31, 41, 55, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      color: var(--text-muted);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #22c55e 0, #15803d 60%, transparent 100%);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+    }
+
+    .title {
+      margin-top: 8px;
+      font-size: 22px;
+      line-height: 1.25;
+      font-weight: 700;
+    }
+
+    .title span.mazembe {
+      background: linear-gradient(135deg, #ffffff, #d1d5db);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .title span.lupopo {
+      background: linear-gradient(135deg, #ffd600, #f97316);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .subtitle {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .hero-badge-side {
+      width: 88px;
+      height: 88px;
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 15% 0, rgba(250, 250, 250, 0.95) 0, transparent 50%),
+        radial-gradient(circle at 85% 110%, rgba(251, 191, 36, 1) 0, transparent 55%),
+        linear-gradient(135deg, #020617, #020617);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow:
+        0 16px 32px rgba(15, 23, 42, 0.7),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-badge-inner {
+      position: relative;
+      width: 78%;
+      height: 78%;
+      border-radius: 999px;
+      border: 1px solid rgba(15, 23, 42, 0.85);
+      background: radial-gradient(circle at 30% 18%, #111827 0, #020617 55%, #000000 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-lines {
+      position: absolute;
+      inset: -30%;
+      background:
+        radial-gradient(circle at 0 50%, rgba(239, 68, 68, 0.18) 0, transparent 60%),
+        radial-gradient(circle at 100% 50%, rgba(56, 189, 248, 0.21) 0, transparent 60%);
+      mix-blend-mode: screen;
+      opacity: 0.8;
+    }
+
+    .hero-vs {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      color: #e5e7eb;
+    }
+
+    .hero-vs span.team {
+      padding: 3px 7px;
+      border-radius: 999px;
+      font-size: 10px;
+      border: 1px solid rgba(209, 213, 219, 0.35);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-vs span.mazembe-chip {
+      background: rgba(15, 23, 42, 0.9);
+      color: #f9fafb;
+    }
+
+    .hero-vs span.lupopo-chip {
+      background: rgba(250, 250, 250, 0.9);
+      color: #111827;
+    }
+
+    .hero-vs span.vs {
+      font-size: 10px;
+      color: #9ca3af;
+    }
+
+    /* Top info bar */
+    .top-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 10px;
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .score-chip,
+    .lives-chip,
+    .progress-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.7);
+      color: #e5e7eb;
+      min-height: 24px;
+    }
+
+    .score-chip span.label,
+    .lives-chip span.label,
+    .progress-chip span.label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    .score-value {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .lives {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 15px;
+    }
+
+    .lives .heart {
+      filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.7));
+    }
+
+    .lives .heart.lost {
+      opacity: 0.25;
+      filter: none;
+    }
+
+    .progress-chip span.value {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    /* Main sections */
+    .screen {
+      display: none;
+      animation: fadeIn 0.28s ease-out forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .screen-body {
+      margin-top: 10px;
+    }
+
+    /* Start screen */
+    .start-highlight {
+      margin: 10px 0 16px;
+      padding: 10px 11px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.12) 0, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(251, 191, 36, 0.13) 0, transparent 55%),
+        rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 12px;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    .start-highlight strong {
+      color: var(--accent-lupopo-soft);
+      font-weight: 600;
+    }
+
+    .start-rules {
+      margin-top: 6px;
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .start-rules span.bullet {
+      color: var(--accent-lupopo);
+      font-size: 12px;
+      margin-right: 4px;
+    }
+
+    .primary-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: linear-gradient(135deg, #eab308, #f97316);
+      color: #020617;
+      box-shadow:
+        0 14px 30px rgba(251, 191, 36, 0.45),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast),
+        background var(--transition-fast);
+    }
+
+    .primary-btn span.icon {
+      font-size: 16px;
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-1px) scale(1.01);
+      filter: brightness(1.04);
+      box-shadow:
+        0 18px 40px rgba(251, 191, 36, 0.55),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .primary-btn:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow:
+        0 10px 24px rgba(251, 191, 36, 0.35),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    /* Question screen */
+    .question-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.92);
+      border: 1px solid rgba(75, 85, 99, 0.85);
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .question-tag-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #38bdf8 0, #1d4ed8 65%, transparent 100%);
+    }
+
+    .question-text {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .question-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .question-meta span.points {
+      color: var(--accent-lupopo-soft);
+      font-weight: 500;
+    }
+
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .option-btn {
+      width: 100%;
+      padding: 12px 13px;
+      border-radius: 18px;
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 14px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      transition:
+        background var(--transition-normal),
+        border-color var(--transition-normal),
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        color var(--transition-normal),
+        opacity var(--transition-normal);
+      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.75);
+      touch-action: manipulation;
+    }
+
+    .option-btn span.index {
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      background: radial-gradient(circle at 30% 20%, #111827 0, #020617 75%);
+      color: var(--text-muted);
+      border: 1px solid rgba(75, 85, 99, 0.9);
+      flex-shrink: 0;
+    }
+
+    .option-label {
+      flex: 1;
+      line-height: 1.4;
+    }
+
+    .option-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(148, 163, 184, 0.85);
+      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
+    }
+
+    .option-btn:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.8);
+    }
+
+    .option-btn.correct {
+      background: linear-gradient(135deg, #166534, #22c55e);
+      border-color: rgba(22, 163, 74, 0.9);
+      color: #ecfdf5;
+      box-shadow: 0 10px 20px rgba(22, 163, 74, 0.7);
+    }
+
+    .option-btn.correct span.index {
+      background: rgba(15, 118, 110, 0.9);
+      border-color: rgba(22, 163, 74, 0.9);
+      color: #ecfdf5;
+    }
+
+    .option-btn.wrong {
+      background: linear-gradient(135deg, #7f1d1d, #ef4444);
+      border-color: rgba(248, 113, 113, 0.95);
+      color: #fef2f2;
+      box-shadow: 0 10px 20px rgba(248, 113, 113, 0.7);
+    }
+
+    .option-btn.wrong span.index {
+      background: rgba(127, 29, 29, 0.95);
+      border-color: rgba(248, 113, 113, 0.95);
+      color: #fee2e2;
+    }
+
+    .option-btn.disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    .game-footer {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+    }
+
+    .streak-pill {
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.75);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .streak-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #f97316 0, #ea580c 60%, transparent 100%);
+      box-shadow: 0 0 12px rgba(249, 115, 22, 0.9);
+    }
+
+    /* Game over screen */
+    .gameover-header {
+      text-align: center;
+      margin: 8px 0 12px;
+    }
+
+    .gameover-title {
+      font-size: 19px;
+      font-weight: 700;
+      margin-bottom: 4px;
+      letter-spacing: 0.02em;
+    }
+
+    .gameover-subtitle {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    .final-score-card {
+      margin: 12px 0;
+      padding: 12px 12px 13px;
+      border-radius: var(--radius-md);
+      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.15) 0, transparent 60%),
+        radial-gradient(circle at 100% 100%, rgba(251, 191, 36, 0.18) 0, transparent 55%),
+        rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(75, 85, 99, 0.95);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .final-score-main {
+      text-align: left;
+    }
+
+    .final-score-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .final-score-value {
+      margin-top: 4px;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .final-score-value span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-left: 4px;
+    }
+
+    .final-stats {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    .final-stats strong {
+      color: var(--accent-lupopo-soft);
+      font-weight: 600;
+    }
+
+    .purchase-btn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      background: radial-gradient(circle at 20% 0, #ffffff 0, #fde68a 40%, #facc15 70%, #f97316 100%);
+      color: #111827;
+      box-shadow:
+        0 14px 35px rgba(251, 191, 36, 0.75),
+        0 0 0 1px rgba(15, 23, 42, 0.95);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-size: 14px;
+      font-weight: 700;
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+    }
+
+    .purchase-btn::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.4), transparent 65%);
+      mix-blend-mode: soft-light;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .purchase-btn:hover {
+      transform: translateY(-1px) scale(1.01);
+      filter: brightness(1.05);
+      box-shadow:
+        0 18px 40px rgba(251, 191, 36, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.95);
+    }
+
+    .purchase-btn:active {
+      transform: translateY(0) scale(0.99);
+      box-shadow:
+        0 10px 26px rgba(251, 191, 36, 0.7),
+        0 0 0 1px rgba(15, 23, 42, 0.95);
+    }
+
+    .purchase-btn span.tag {
+      font-size: 11px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      border: 1px solid rgba(15, 23, 42, 1);
+    }
+
+    .purchase-btn span.icon {
+      font-size: 15px;
+    }
+
+    .gameover-actions {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .secondary-btn {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px dashed rgba(148, 163, 184, 0.7);
+      background: rgba(15, 23, 42, 0.85);
+      color: #e5e7eb;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition:
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        transform var(--transition-fast);
+    }
+
+    .secondary-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(209, 213, 219, 0.85);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .secondary-btn:active {
+      transform: translateY(0) scale(0.99);
+    }
+
+    /* Toast message */
+    .toast {
+      position: fixed;
+      inset-inline: 16px;
+      bottom: 16px;
+      max-width: 480px;
+      margin-inline: auto;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.98);
+      color: #e5e7eb;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 1);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition:
+        opacity 0.2s ease-out,
+        transform 0.2s ease-out;
+      z-index: 20;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .toast span.label {
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .toast strong {
+      font-weight: 600;
+    }
+
+    .toast button {
+      border: none;
+      border-radius: 999px;
+      padding: 4px 9px;
+      font-size: 10px;
+      background: rgba(31, 41, 55, 1);
+      color: #e5e7eb;
+      cursor: pointer;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes shake {
+      0% {
+        transform: translateX(0);
+      }
+      20% {
+        transform: translateX(-4px);
+      }
+      40% {
+        transform: translateX(4px);
+      }
+      60% {
+        transform: translateX(-3px);
+      }
+      80% {
+        transform: translateX(3px);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
+
+    .shake {
+      animation: shake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+    }
+
+    /* Utility */
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="card" id="game-card">
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero-main">
+          <div class="badge">
+            <span class="badge-dot"></span>
+            <span>Ultimate Foot Quiz • Europe</span>
+          </div>
+          <h1 class="title">
+            Ultimate Foot :
+            <span class="mazembe">Grand</span>
+            <span class="lupopo">Quiz Europe</span>
+          </h1>
+          <p class="subtitle">
+            Ligue des Champions, Euros, clubs mythiques. Prouve que tu connais le
+            <strong>vrai football européen</strong>… et reste dans la légende.
+          </p>
+        </div>
+        <div class="hero-badge-side" aria-hidden="true">
+          <div class="hero-badge-inner">
+            <div class="hero-lines"></div>
+            <div class="hero-vs">
+              <span class="team mazembe-chip">Légendes</span>
+              <span class="vs">vs</span>
+              <span class="team lupopo-chip">Challenger</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top info (visible in game / gameover) -->
+      <div class="top-info" id="top-info">
+        <div class="score-chip">
+          <span class="label">Score</span>
+          <span class="score-value" id="score">0</span>
+        </div>
+        <div class="lives-chip">
+          <span class="label">Vies</span>
+          <div class="lives" id="lives">
+            <!-- hearts injected by JS -->
+          </div>
+        </div>
+        <div class="progress-chip">
+          <span class="label">Question</span>
+          <span class="value" id="progress-text">0 / 0</span>
+        </div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="screen active" id="start-screen">
+        <div class="screen-body">
+          <div class="start-highlight">
+            <strong>Règle du jeu :</strong><br />
+            Tu entres avec <strong>3 vies</strong>. Chaque bonne réponse te donne
+            <strong>+10 points</strong>. Chaque erreur te fait perdre <strong>1 vie</strong>.
+          </div>
+          <div class="start-rules">
+            <div><span class="bullet">•</span> Réponds comme si tout le stade te regardait.</div>
+            <div>
+              <span class="bullet">•</span> Si tu perds toutes tes vies, tu quittes la pelouse comme un
+              <strong>remplaçant anonyme</strong>.
+            </div>
+            <div>
+              <span class="bullet">•</span> Si tu veux revenir… il faudra
+              <strong>acheter de nouvelles vies</strong>.
+            </div>
+          </div>
+
+          <button class="primary-btn" id="start-btn" type="button">
+            <span class="icon">⚽</span>
+            <span>Lancer le quiz</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Question Screen -->
+      <div class="screen" id="question-screen">
+        <div class="screen-body">
+          <div class="question-tag">
+            <span class="question-tag-dot"></span>
+            <span>Round spécial football européen</span>
+          </div>
+          <div class="question-text" id="question-text">
+            <!-- Question here -->
+          </div>
+          <div class="question-meta">
+            <span>Chaque bonne réponse : <span class="points">+10 pts</span></span>
+            <span id="question-counter">Question 1 / 5</span>
+            <span id="timer" aria-live="polite">⏱ 25 s</span>
+          </div>
+
+          <div class="options-grid" id="options-grid">
+            <!-- Options here -->
+          </div>
+
+          <div class="game-footer">
+            <div class="streak-pill" id="streak-pill">
+              <span class="streak-dot"></span>
+              <span id="streak-text">Fais vibrer le stade !</span>
+            </div>
+            <span>100 % foot européen, joue sérieusement…</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game Over Screen -->
+      <div class="screen" id="gameover-screen">
+        <div class="screen-body">
+          <div class="gameover-header">
+            <div class="gameover-title">Game Over… prêt pour la revanche ?</div>
+            <p class="gameover-subtitle" id="gameover-message">
+              Tu as quitté la pelouse comme un remplaçant sans gloire. Les
+              supporters te regardent en silence…
+            </p>
+          </div>
+
+          <div class="final-score-card">
+            <div class="final-score-main">
+              <div class="final-score-label">Score final</div>
+              <div class="final-score-value" id="final-score">
+                0 <span>pts</span>
+              </div>
+            </div>
+            <div class="final-stats" id="final-stats">
+              <!-- Filled by JS -->
+            </div>
+          </div>
+
+          <!-- Bouton "Acheter 3 vies" supprimé -->
+
+          <div class="gameover-actions">
+            <button class="secondary-btn" id="ig-premium-btn" type="button">
+              <span>S’abonner pour vies INFINIES</span>
+            </button>
+            <p class="gameover-subtitle" id="premium-status" style="margin-top:4px;">
+              <!-- message dynamique (vérification, succès, etc.) -->
+            </p>
+            <p class="gameover-subtitle" style="font-size:11px; opacity:0.8;">
+              Attention, si vous vous désabonnez, le mode Premium sera désactivé.
+            </p>
+            <!-- Bouton rejouer supprimé -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast">
+    <div>
+      <span class="label">Ultimate Foot Quiz</span><br />
+      <strong id="toast-text">Bonne réponse, tu fais lever le stade !</strong>
+    </div>
+    <button type="button" id="toast-close">OK</button>
+  </div>
+
+  <script>
+    // Lien de paiement (non utilisé directement, Flutterwave gère l'encaissement)
+    const PAYMENT_LINK = "https://google.com";
+
+    // --- Clés de stockage local pour score, vies et premium ---
+    const STORAGE_KEY_SCORE = "ufq_score";
+    const STORAGE_KEY_LIVES = "ufq_lives";
+    const STORAGE_KEY_PREMIUM = "ufq_is_premium";
+
+    // Base de 50 questions sur le football européen (LDC, grands championnats, Euros, etc.)
+    // Format : { question, options: [A,B,C,D], reponse: "texte exact" }
+    const questions = [
+      {
+        question: "Quel joueur est le meilleur buteur de l’histoire de la Ligue des Champions de l’UEFA ?",
+        options: ["Lionel Messi", "Cristiano Ronaldo", "Robert Lewandowski", "Karim Benzema"],
+        reponse: "Cristiano Ronaldo",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 2019 après une finale 100 % anglaise ?",
+        options: ["Manchester City", "Tottenham", "Liverpool", "Chelsea"],
+        reponse: "Liverpool",
+      },
+      {
+        question: "Quel est le surnom du stade du Borussia Dortmund, le Signal Iduna Park, en raison de son ambiance ?",
+        options: ["La Bombonera", "Le Mur Jaune", "Le Théâtre des Rêves", "La Cathédrale"],
+        reponse: "Le Mur Jaune",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 2004 avec José Mourinho sur le banc ?",
+        options: ["FC Porto", "Chelsea", "Inter Milan", "Valence CF"],
+        reponse: "FC Porto",
+      },
+      {
+        question: "Quel joueur a porté les maillots du Sporting CP, de Manchester United, du Real Madrid et de la Juventus ?",
+        options: ["Luis Figo", "Cristiano Ronaldo", "Ángel Di María", "Gonzalo Higuaín"],
+        reponse: "Cristiano Ronaldo",
+      },
+      {
+        question: "Je suis passé par l’Ajax, la Juventus et le FC Barcelone. Qui suis-je ?",
+        options: ["Edgar Davids", "Zlatan Ibrahimović", "Frenkie de Jong", "Dani Alves"],
+        reponse: "Edgar Davids",
+      },
+      {
+        question: "Quel joueur a porté les maillots de Chelsea, du Real Madrid et du Bayern Munich ?",
+        options: ["Arjen Robben", "Claude Makélélé", "Mario Gómez", "Gareth Bale"],
+        reponse: "Arjen Robben",
+      },
+      {
+        question: "Quel club détient le plus grand nombre de titres de Premier League depuis 1992 ?",
+        options: ["Liverpool", "Arsenal", "Chelsea", "Manchester United"],
+        reponse: "Manchester United",
+      },
+      {
+        question: "Quel club espagnol joue ses matchs à domicile au stade Santiago Bernabéu ?",
+        options: ["Atlético de Madrid", "FC Barcelone", "Sevilla FC", "Real Madrid"],
+        reponse: "Real Madrid",
+      },
+      {
+        question: "Comment s’appelle le stade mythique du FC Barcelone ?",
+        options: ["San Siro", "Camp Nou", "Allianz Arena", "Parc des Princes"],
+        reponse: "Camp Nou",
+      },
+      {
+        question: "Quel club a remporté la Serie A italienne neuf fois de suite entre 2012 et 2020 ?",
+        options: ["AC Milan", "Inter Milan", "AS Roma", "Juventus"],
+        reponse: "Juventus",
+      },
+      {
+        question: "Quelle équipe a réalisé un triplé Ligue des Champions - Liga - Coupe du Roi en 2015 ?",
+        options: ["Real Madrid", "FC Barcelone", "Atlético de Madrid", "Sevilla FC"],
+        reponse: "FC Barcelone",
+      },
+      {
+        question: "Qui était l’entraîneur de l’Inter Milan lors de leur triplé (Serie A, Coupe, Ligue des Champions) en 2010 ?",
+        options: ["Carlo Ancelotti", "Roberto Mancini", "José Mourinho", "Rafael Benítez"],
+        reponse: "José Mourinho",
+      },
+      {
+        question: "Combien de Ligue des Champions Carlo Ancelotti a-t-il gagnées en tant qu’entraîneur (avec Milan et le Real Madrid) ?",
+        options: ["2", "3", "4", "5"],
+        reponse: "4",
+      },
+      {
+        question: "Quel joueur détient le record de buts marqués en une seule saison de Ligue des Champions (17 buts) ?",
+        options: ["Lionel Messi", "Robert Lewandowski", "Cristiano Ronaldo", "Karim Benzema"],
+        reponse: "Cristiano Ronaldo",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 2021 avec Thomas Tuchel comme entraîneur ?",
+        options: ["Paris Saint-Germain", "Chelsea", "Manchester City", "Real Madrid"],
+        reponse: "Chelsea",
+      },
+      {
+        question: "Quel est le club européen qui a remporté le plus de Ligue Europa / Coupe UEFA ?",
+        options: ["Juventus", "Liverpool", "Sevilla FC", "Atlético de Madrid"],
+        reponse: "Sevilla FC",
+      },
+      {
+        question: "Quel club allemand dispute ses matchs à domicile à l’Allianz Arena ?",
+        options: ["Borussia Dortmund", "RB Leipzig", "Bayern Munich", "Bayer Leverkusen"],
+        reponse: "Bayern Munich",
+      },
+      {
+        question: "Quel joueur français a marqué le but vainqueur de la finale de la Coupe du Monde 1998 sur penalty ?",
+        options: ["Thierry Henry", "Zinédine Zidane", "Didier Deschamps", "David Trezeguet"],
+        reponse: "Zinédine Zidane",
+      },
+      {
+        question: "Qui a remporté le Ballon d’Or 2005 alors qu’il jouait au FC Barcelone ?",
+        options: ["Samuel Eto’o", "Ronaldinho", "Andriy Shevchenko", "Kaká"],
+        reponse: "Ronaldinho",
+      },
+      {
+        question: "Quelle année Cristiano Ronaldo a-t-il remporté son premier Ballon d’Or ?",
+        options: ["2007", "2008", "2009", "2010"],
+        reponse: "2008",
+      },
+      {
+        question: "Quel gardien détient le plus de clean sheets de l’histoire de la Premier League ?",
+        options: ["Edwin van der Sar", "Petr Čech", "David Seaman", "Alisson Becker"],
+        reponse: "Petr Čech",
+      },
+      {
+        question: "Quel joueur a été victime d’une morsure de Luis Suárez lors d’un match de Premier League à Anfield en 2013 ?",
+        options: ["John Terry", "Patrice Évra", "Branislav Ivanović", "Giorgio Chiellini"],
+        reponse: "Branislav Ivanović",
+      },
+      {
+        question: "Quel défenseur italien Luis Suárez a-t-il mordu lors de la Coupe du Monde 2014, avant d’être suspendu ?",
+        options: ["Leonardo Bonucci", "Giorgio Chiellini", "Andrea Barzagli", "Marco Materazzi"],
+        reponse: "Giorgio Chiellini",
+      },
+      {
+        question: "Quel club anglais est surnommé \"The Gunners\" ?",
+        options: ["Chelsea", "Arsenal", "Tottenham Hotspur", "Manchester City"],
+        reponse: "Arsenal",
+      },
+      {
+        question: "Quel joueur a remporté le plus de Ballons d’Or dans l’histoire ?",
+        options: ["Lionel Messi", "Cristiano Ronaldo", "Johan Cruyff", "Michel Platini"],
+        reponse: "Lionel Messi",
+      },
+      {
+        question: "Quel club a remporté la finale de la Ligue des Champions 2005 à Istanbul après avoir remonté un 3-0 ?",
+        options: ["Liverpool", "AC Milan", "Juventus", "Porto"],
+        reponse: "Liverpool",
+      },
+      {
+        question: "Qui a marqué le but décisif pour Manchester United en finale de Ligue des Champions 1999 à la 93e minute ?",
+        options: ["David Beckham", "Ryan Giggs", "Ole Gunnar Solskjær", "Teddy Sheringham"],
+        reponse: "Ole Gunnar Solskjær",
+      },
+      {
+        question: "Quel club a gagné l’Euro 2016 en battant la France en finale ?",
+        options: ["Allemagne", "Espagne", "Portugal", "Italie"],
+        reponse: "Portugal",
+      },
+      {
+        question: "Quel joueur portugais a marqué le but victorieux en finale de l’Euro 2016 ?",
+        options: ["Cristiano Ronaldo", "Nani", "Ricardo Quaresma", "Éder"],
+        reponse: "Éder",
+      },
+      {
+        question: "Quel club italien joue à San Siro en partageant le stade avec un autre grand club ?",
+        options: ["Juventus", "AS Roma", "Lazio", "AC Milan"],
+        reponse: "AC Milan",
+      },
+      {
+        question: "Quel club anglais est connu comme \"The Red Devils\" ?",
+        options: ["Liverpool", "Arsenal", "Manchester United", "Nottingham Forest"],
+        reponse: "Manchester United",
+      },
+      {
+        question: "Quel club espagnol est surnommé \"Los Colchoneros\" ?",
+        options: ["Real Madrid", "Valence CF", "Villarreal CF", "Atlético de Madrid"],
+        reponse: "Atlético de Madrid",
+      },
+      {
+        question: "Quel joueur a marqué un retourné acrobatique célèbre contre la Juventus en Ligue des Champions 2018 avec le Real Madrid ?",
+        options: ["Gareth Bale", "Karim Benzema", "Cristiano Ronaldo", "Sergio Ramos"],
+        reponse: "Cristiano Ronaldo",
+      },
+      {
+        question: "Quel club allemand a remporté la Ligue des Champions 2013 en battant le Borussia Dortmund en finale ?",
+        options: ["Bayer Leverkusen", "RB Leipzig", "Bayern Munich", "Hambourg"],
+        reponse: "Bayern Munich",
+      },
+      {
+        question: "Qui était l’entraîneur du FC Barcelone lors du sextuplé historique de 2009 ?",
+        options: ["Frank Rijkaard", "Pep Guardiola", "Luis Enrique", "Tito Vilanova"],
+        reponse: "Pep Guardiola",
+      },
+      {
+        question: "Quel club anglais a remporté la Premier League 2015-2016 contre toute attente, avec Claudio Ranieri comme coach ?",
+        options: ["Leicester City", "Everton", "West Ham", "Southampton"],
+        reponse: "Leicester City",
+      },
+      {
+        question: "Quel club espagnol a remporté quatre Ligue des Champions entre 2014 et 2018 ?",
+        options: ["FC Barcelone", "Real Madrid", "Sevilla FC", "Atlético de Madrid"],
+        reponse: "Real Madrid",
+      },
+      {
+        question: "Quel joueur polonais est connu pour avoir marqué cinq buts en neuf minutes avec le Bayern Munich en Bundesliga ?",
+        options: ["Robert Lewandowski", "Jakub Błaszczykowski", "Arkadiusz Milik", "Krzysztof Piątek"],
+        reponse: "Robert Lewandowski",
+      },
+      {
+        question: "Quel club français a atteint la finale de la Ligue des Champions 2020 pour la première fois de son histoire ?",
+        options: ["Olympique de Marseille", "Olympique Lyonnais", "AS Monaco", "Paris Saint-Germain"],
+        reponse: "Paris Saint-Germain",
+      },
+      {
+        question: "Quel joueur a inscrit un triplé en finale de Ligue des Champions 2018 pour le Real Madrid contre Liverpool ?",
+        options: ["Cristiano Ronaldo", "Gareth Bale", "Karim Benzema", "Marco Asensio"],
+        reponse: "Gareth Bale",
+      },
+      {
+        question: "Quel club a remporté l’Euro 2008 et l’Euro 2012 consécutivement ?",
+        options: ["Italie", "Espagne", "Allemagne", "Portugal"],
+        reponse: "Espagne",
+      },
+      {
+        question: "Quel pays a organisé la Coupe du Monde 2006 remportée par l’Italie ?",
+        options: ["France", "Italie", "Allemagne", "Portugal"],
+        reponse: "Allemagne",
+      },
+      {
+        question: "Quel défenseur espagnol est célèbre pour ses buts de la tête en fin de match avec le Real Madrid ?",
+        options: ["Gerard Piqué", "Sergio Ramos", "Carles Puyol", "Raúl Albiol"],
+        reponse: "Sergio Ramos",
+      },
+      {
+        question: "Quel club écossais joue ses matchs à domicile à Celtic Park ?",
+        options: ["Rangers", "Aberdeen", "Hearts", "Celtic"],
+        reponse: "Celtic",
+      },
+      {
+        question: "Quel attaquant suédois a joué pour l’Ajax, la Juventus, l’Inter, le Barça, le Milan et Manchester United ?",
+        options: ["Henrik Larsson", "Zlatan Ibrahimović", "Freddie Ljungberg", "Dejan Kulusevski"],
+        reponse: "Zlatan Ibrahimović",
+      },
+      {
+        question: "Quel club anglais a remporté la Ligue des Champions 2012 avec Didier Drogba buteur en finale ?",
+        options: ["Arsenal", "Liverpool", "Chelsea", "Manchester United"],
+        reponse: "Chelsea",
+      },
+      {
+        question: "Quel stade est surnommé \"Le Théâtre des Rêves\" ?",
+        options: ["Anfield", "Old Trafford", "Stamford Bridge", "Emirates Stadium"],
+        reponse: "Old Trafford",
+      },
+      {
+        question: "Quel club a remporté la première Ligue des Champions sous ce nom moderne en 1993 ?",
+        options: ["AC Milan", "Marseille", "Real Madrid", "Manchester United"],
+        reponse: "Marseille",
+      },
+      {
+        question: "Quel pays a remporté l’Euro 2004 en battant le pays hôte en finale ?",
+        options: ["Grèce", "Portugal", "Pays-Bas", "République tchèque"],
+        reponse: "Grèce",
+      },
+      {
+        question: "Quel joueur espagnol a marqué le but de la victoire en finale de l’Euro 2008 contre l’Allemagne ?",
+        options: ["Fernando Torres", "David Villa", "Andrés Iniesta", "Xavi"],
+        reponse: "Fernando Torres",
+      },
+
+      // Questions supplémentaires (années 1990 et 2000)
+      {
+        question: "Quelle équipe a remporté la Ligue des Champions 1992, dernière édition avant le nouveau format moderne ?",
+        options: ["Sampdoria", "Barcelone", "Milan AC", "Benfica"],
+        reponse: "Barcelone",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 1994 en écrasant Barcelone 4-0 en finale ?",
+        options: ["Real Madrid", "Ajax", "Milan AC", "Juventus"],
+        reponse: "Milan AC",
+      },
+      {
+        question: "Quel attaquant français a inscrit un triplé en finale de Ligue des Champions 1994-1995 avec l’Ajax ?",
+        options: ["Youri Djorkaeff", "Jari Litmanen", "Patrick Kluivert", "Aucun, il n’y a pas eu de triplé"],
+        reponse: "Aucun, il n’y a pas eu de triplé",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 1995 avec Louis van Gaal comme entraîneur ?",
+        options: ["Ajax", "Juventus", "Milan AC", "Borussia Dortmund"],
+        reponse: "Ajax",
+      },
+      {
+        question: "Quel club allemand a remporté la Ligue des Champions 1997 en battant la Juventus en finale ?",
+        options: ["Bayern Munich", "Hambourg", "Borussia Dortmund", "Werder Brême"],
+        reponse: "Borussia Dortmund",
+      },
+      {
+        question: "Quel joueur français a marqué un doublé en finale de la Coupe du Monde 1998 ?",
+        options: ["Thierry Henry", "Zinédine Zidane", "David Trezeguet", "Robert Pirès"],
+        reponse: "Zinédine Zidane",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 1998, 32 ans après son dernier titre européen majeur ?",
+        options: ["Ajax", "Real Madrid", "Juventus", "Inter Milan"],
+        reponse: "Real Madrid",
+      },
+      {
+        question: "Qui a marqué la fameuse reprise de volée pour le Real Madrid en finale de Ligue des Champions 2002 contre le Bayer Leverkusen ?",
+        options: ["Raúl", "Ronaldo Nazário", "Zinédine Zidane", "Luis Figo"],
+        reponse: "Zinédine Zidane",
+      },
+      {
+        question: "Quel club italien a remporté la Serie A de la saison 1999-2000 avec Sven-Göran Eriksson comme entraîneur ?",
+        options: ["Juventus", "Inter Milan", "Lazio", "Parme"],
+        reponse: "Lazio",
+      },
+      {
+        question: "Quel club anglais a réalisé le triplé Premier League - FA Cup - Ligue des Champions en 1999 ?",
+        options: ["Arsenal", "Chelsea", "Manchester United", "Leeds United"],
+        reponse: "Manchester United",
+      },
+      {
+        question: "Quel attaquant brésilien a rejoint l’Inter Milan en 1997 après une saison exceptionnelle au FC Barcelone ?",
+        options: ["Romário", "Rivaldo", "Ronaldo Nazário", "Bebeto"],
+        reponse: "Ronaldo Nazário",
+      },
+      {
+        question: "Quel joueur a remporté le Ballon d’Or 1997 grâce à ses performances avec Dortmund et la Juventus ?",
+        options: ["Ronaldo Nazário", "Zinédine Zidane", "George Weah", "Roberto Baggio"],
+        reponse: "Zinédine Zidane",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 1996 après une séance de tirs au but contre l’Ajax ?",
+        options: ["Milan AC", "Real Madrid", "Juventus", "Borussia Dortmund"],
+        reponse: "Juventus",
+      },
+      {
+        question: "Quelle nation a remporté l’Euro 1992 en Suède, après avoir été repêchée à la dernière minute ?",
+        options: ["Pays-Bas", "Danemark", "Allemagne", "France"],
+        reponse: "Danemark",
+      },
+      {
+        question: "Quel club espagnol a remporté la Coupe des Coupes 1997 avec un Ronaldo Nazário en feu ?",
+        options: ["Real Madrid", "Barcelone", "Valence", "Atlético de Madrid"],
+        reponse: "Barcelone",
+      },
+      {
+        question: "Quel club français a remporté la Ligue 1 à la surprise générale en 1997-1998 ?",
+        options: ["Lyon", "Paris Saint-Germain", "Auxerre", "Lens"],
+        reponse: "Lens",
+      },
+      {
+        question: "Quelle équipe nationale a remporté l’Euro 2000 avec un but en or de David Trezeguet ?",
+        options: ["Allemagne", "Italie", "France", "Portugal"],
+        reponse: "France",
+      },
+      {
+        question: "Quel club espagnol a remporté la Ligue des Champions 2000 en battant Valence en finale ?",
+        options: ["Real Madrid", "Barcelone", "Deportivo La Corogne", "Atlético de Madrid"],
+        reponse: "Real Madrid",
+      },
+      {
+        question: "Quel attaquant italien a marqué un triplé légendaire contre l’Allemagne en demi-finale de la Coupe du Monde 1970, souvent évoqué dans les années 1990-2000 ?",
+        options: ["Paolo Rossi", "Gerd Müller", "Luigi Riva", "Il ne s’agit pas des années 90-2000"],
+        reponse: "Il ne s’agit pas des années 90-2000",
+      },
+      {
+        question: "Quel gardien de but a remporté la Ligue des Champions 1995 avec l’Ajax puis a rejoint la Juventus ?",
+        options: ["Edwin van der Sar", "Peter Schmeichel", "Angelo Peruzzi", "Santiago Cañizares"],
+        reponse: "Edwin van der Sar",
+      },
+      {
+        question: "Quel club anglais a remporté la Premier League invaincu lors de la saison 2003-2004 ?",
+        options: ["Manchester United", "Chelsea", "Liverpool", "Arsenal"],
+        reponse: "Arsenal",
+      },
+      {
+        question: "Quel joueur français a remporté le Ballon d’Or 1998 ?",
+        options: ["Thierry Henry", "Zinédine Zidane", "Didier Deschamps", "Marcel Desailly"],
+        reponse: "Zinédine Zidane",
+      },
+      {
+        question: "Quel club allemand a remporté la Ligue des Champions 2001 face à Valence ?",
+        options: ["Borussia Dortmund", "Hambourg", "Bayern Munich", "Schalke 04"],
+        reponse: "Bayern Munich",
+      },
+      {
+        question: "Quel joueur a marqué le but en or pour l’Allemagne en finale de l’Euro 1996 ?",
+        options: ["Jürgen Klinsmann", "Oliver Bierhoff", "Thomas Hässler", "Andreas Möller"],
+        reponse: "Oliver Bierhoff",
+      },
+      {
+        question: "Quel club italien a remporté la Coupe de l’UEFA 1998 en battant la Lazio en finale ?",
+        options: ["Inter Milan", "Milan AC", "Juventus", "Parme"],
+        reponse: "Inter Milan",
+      },
+      {
+        question: "Quel club a été champion de Premier League en 1994-1995 avec Alan Shearer comme buteur vedette ?",
+        options: ["Blackburn Rovers", "Newcastle United", "Manchester United", "Leeds United"],
+        reponse: "Blackburn Rovers",
+      },
+      {
+        question: "Quel club turc a remporté la Coupe de l’UEFA 2000 face à Arsenal ?",
+        options: ["Fenerbahçe", "Galatasaray", "Beşiktaş", "Trabzonspor"],
+        reponse: "Galatasaray",
+      },
+      {
+        question: "Quel défenseur italien est célèbre pour avoir joué toute sa carrière à l’AC Milan entre la fin des années 1980 et les années 2000 ?",
+        options: ["Paolo Maldini", "Franco Baresi", "Alessandro Nesta", "Fabio Cannavaro"],
+        reponse: "Paolo Maldini",
+      },
+      {
+        question: "Quel club espagnol a remporté la Liga 1999-2000 devant le Deportivo La Corogne et le Barça ?",
+        options: ["Valence CF", "Real Madrid", "Atlético de Madrid", "Real Sociedad"],
+        reponse: "Deportivo La Corogne",
+      },
+      {
+        question: "Quel attaquant brésilien du PSG et du FC Barcelone a remporté le Ballon d’Or 1999 ?",
+        options: ["Romário", "Rivaldo", "Ronaldinho", "Ronaldo Nazário"],
+        reponse: "Rivaldo",
+      },
+      {
+        question: "Quel club italien a remporté la Ligue des Champions 2003 lors d’une finale 100 % italienne à Old Trafford ?",
+        options: ["Milan AC", "Inter Milan", "Juventus", "Lazio"],
+        reponse: "Milan AC",
+      },
+      {
+        question: "Quel attaquant ukrainien a brillé au Milan AC dans les années 2000 et a remporté le Ballon d’Or 2004 ?",
+        options: ["Andriy Shevchenko", "Serhiy Rebrov", "Oleg Blokhine", "Artem Milevskiy"],
+        reponse: "Andriy Shevchenko",
+      },
+      {
+        question: "Quel club portugais a remporté la Ligue des Champions 2004 ?",
+        options: ["Benfica", "Sporting CP", "FC Porto", "Boavista"],
+        reponse: "FC Porto",
+      },
+      {
+        question: "Quel club anglais a remporté la Premier League pour la première fois en 2004-2005 sous José Mourinho ?",
+        options: ["Chelsea", "Arsenal", "Liverpool", "Newcastle United"],
+        reponse: "Chelsea",
+      },
+      {
+        question: "Quelle nation a atteint la finale de la Coupe du Monde 2002 avant de s’incliner face au Brésil ?",
+        options: ["Italie", "France", "Allemagne", "Portugal"],
+        reponse: "Allemagne",
+      },
+      {
+        question: "Quel joueur anglais a marqué un coup franc mémorable contre la Grèce en 2001 pour qualifier l’Angleterre pour la Coupe du Monde 2002 ?",
+        options: ["Steven Gerrard", "David Beckham", "Paul Scholes", "Michael Owen"],
+        reponse: "David Beckham",
+      },
+      {
+        question: "Quel club espagnol a remporté la Liga 2003-2004 avec Rafa Benítez comme entraîneur ?",
+        options: ["Real Madrid", "Barcelone", "Valence CF", "Deportivo La Corogne"],
+        reponse: "Valence CF",
+      },
+      {
+        question: "Quel joueur français a été capitaine d’Arsenal durant la période des Invincibles ?",
+        options: ["Patrick Vieira", "Thierry Henry", "Robert Pirès", "Sol Campbell"],
+        reponse: "Patrick Vieira",
+      },
+      {
+        question: "Quel club italien a remporté la Coupe de l’UEFA 1999 avec un certain Hernán Crespo en attaque ?",
+        options: ["Parme", "Juventus", "Inter Milan", "Fiorentina"],
+        reponse: "Parme",
+      },
+      {
+        question: "Quel club anglais a disputé la finale de la Ligue des Champions 2006 face au FC Barcelone ?",
+        options: ["Manchester United", "Chelsea", "Arsenal", "Leeds United"],
+        reponse: "Arsenal",
+      },
+      {
+        question: "Quel joueur brésilien a marqué deux buts pour le Real Madrid en finale de Ligue des Champions 2002 contre le Bayer Leverkusen ?",
+        options: ["Ronaldo Nazário", "Raúl", "Roberto Carlos", "Aucun, c’est Zidane qui a marqué le but décisif"],
+        reponse: "Aucun, c’est Zidane qui a marqué le but décisif",
+      },
+      {
+        question: "Quel club anglais a vu émerger un trio offensif mythique appelé \"MSN\" dans les années 2000 ?",
+        options: ["Aucun, c’était au Barça", "Manchester United", "Liverpool", "Chelsea"],
+        reponse: "Aucun, c’était au Barça",
+      },
+      {
+        question: "Quel club écossais a affronté l’Olympique de Marseille en finale de Ligue des Champions 1993 ?",
+        options: ["Rangers", "Aberdeen", "Celtic", "Aucun club écossais, c’était le Milan AC"],
+        reponse: "Aucun club écossais, c’était le Milan AC",
+      },
+      {
+        question: "Quelle sélection a remporté la Coupe du Monde 1990 en Italie ?",
+        options: ["Allemagne de l’Ouest", "Italie", "Argentine", "Brésil"],
+        reponse: "Allemagne de l’Ouest",
+      },
+      {
+        question: "Quel club français a éliminé le Real Madrid et le Milan AC pour atteindre la finale de Ligue des Champions 2004 ?",
+        options: ["Paris Saint-Germain", "Lyon", "Monaco", "Marseille"],
+        reponse: "Monaco",
+      },
+      {
+        question: "Quel joueur batave a manqué un penalty en finale de Ligue des Champions 2003 pour la Juventus ?",
+        options: ["Edgar Davids", "Patrick Kluivert", "Clarence Seedorf", "Aucun Néerlandais n’a tiré pour la Juve"],
+        reponse: "Edgar Davids",
+      },
+      {
+        question: "Quel club anglais a remporté la Coupe des Coupes 1991 avec Alex Ferguson sur le banc ?",
+        options: ["Liverpool", "Arsenal", "Manchester United", "Everton"],
+        reponse: "Manchester United",
+      },
+      {
+        question: "Quel joueur italien a marqué le penalty décisif lors de la séance de tirs au but de la finale de Ligue des Champions 2003 pour Milan ?",
+        options: ["Paolo Maldini", "Andrea Pirlo", "Andriy Shevchenko", "Clarence Seedorf"],
+        reponse: "Andriy Shevchenko",
+      },
+
+      // Bloc expert : questions niveau très difficile
+      {
+        question: "Quel club a été le premier à remporter trois Coupes d’Europe des Clubs Champions consécutives entre 1974 et 1976 ?",
+        options: ["Real Madrid", "Ajax", "Bayern Munich", "Liverpool"],
+        reponse: "Bayern Munich",
+      },
+      {
+        question: "Parmi ces clubs, lequel n’a jamais remporté la Ligue des Champions de l’UEFA ?",
+        options: ["Hambourg", "Steaua Bucarest", "Nottingham Forest", "Valence CF"],
+        reponse: "Valence CF",
+      },
+      {
+        question: "Quel joueur détient le record du nombre de matchs disputés en Ligue des Champions (hors tours préliminaires) ?",
+        options: ["Lionel Messi", "Iker Casillas", "Cristiano Ronaldo", "Xavi"],
+        reponse: "Cristiano Ronaldo",
+      },
+      {
+        question: "Quel club a remporté la toute première Coupe d’Europe des Clubs Champions en 1956 ?",
+        options: ["Milan AC", "Real Madrid", "Reims", "Benfica"],
+        reponse: "Real Madrid",
+      },
+      {
+        question: "Quelle équipe a perdu trois finales de Ligue des Champions consécutives entre 1988 et 1990 ?",
+        options: ["Juventus", "Bayern Munich", "Benfica", "Marseille"],
+        reponse: "Benfica",
+      },
+      {
+        question: "Quel joueur a été capitaine de l’AC Milan lors de la finale de Ligue des Champions 1994 remportée 4-0 contre Barcelone ?",
+        options: ["Paolo Maldini", "Franco Baresi", "Marcel Desailly", "Demetrio Albertini"],
+        reponse: "Franco Baresi",
+      },
+      {
+        question: "Quel club a remporté la Coupe de l’UEFA 1989 en marquant 15 buts sur l’ensemble des demi-finales et de la finale ?",
+        options: ["Juventus", "Naples", "Inter Milan", "Parme"],
+        reponse: "Naples",
+      },
+      {
+        question: "Lequel de ces joueurs n’a jamais remporté le Ballon d’Or ?",
+        options: ["Luis Figo", "Roberto Baggio", "Marco van Basten", "Raúl"],
+        reponse: "Raúl",
+      },
+      {
+        question: "Avec quel club Jürgen Klopp a-t-il atteint sa première finale de Ligue des Champions en tant qu’entraîneur ?",
+        options: ["Liverpool", "Dortmund", "Mainz", "Aucun, c’était en sélection"],
+        reponse: "Dortmund",
+      },
+      {
+        question: "Quel joueur a marqué le but décisif pour le Danemark en finale de l’Euro 1992 contre l’Allemagne ?",
+        options: ["Brian Laudrup", "Kim Vilfort", "John Jensen", "Peter Schmeichel"],
+        reponse: "Kim Vilfort",
+      },
+      {
+        question: "Quel club a remporté la Ligue des Champions 1991, dernière victoire d’un club d’Europe de l’Est dans la compétition ?",
+        options: ["Steaua Bucarest", "Étoile Rouge de Belgrade", "Dynamo Kiev", "Spartak Moscou"],
+        reponse: "Étoile Rouge de Belgrade",
+      },
+      {
+        question: "Quel joueur français a inscrit un coup franc direct pour le Real Madrid en finale de Ligue des Champions 2002 avant le but de Zidane ?",
+        options: ["Claude Makélélé", "Aucun Français n’a marqué sur coup franc", "Zinédine Zidane", "Nicolas Anelka"],
+        reponse: "Aucun Français n’a marqué sur coup franc",
+      },
+      {
+        question: "Quel club a été vice‑champion de Bundesliga à quatre reprises entre 2010 et 2020 sans jamais remporter le titre ?",
+        options: ["Schalke 04", "Bayer Leverkusen", "Borussia Dortmund", "RB Leipzig"],
+        reponse: "Bayer Leverkusen",
+      },
+      {
+        question: "Quel joueur est le meilleur buteur de l’histoire du Classico officiel Real Madrid – FC Barcelone (toutes compétitions confondues) ?",
+        options: ["Alfredo Di Stéfano", "Cristiano Ronaldo", "Lionel Messi", "Raúl"],
+        reponse: "Lionel Messi",
+      },
+      {
+        question: "Quel club italien a été relégué en Serie B en 2006 à la suite du scandale du Calciopoli, malgré un titre de champion sur le terrain ?",
+        options: ["Roma", "Lazio", "Juventus", "Fiorentina"],
+        reponse: "Juventus",
+      },
+      {
+        question: "Quel joueur allemand a disputé quatre finales de Ligue des Champions entre 2001 et 2013 avec le Bayern Munich, n’en remportant qu’une seule ?",
+        options: ["Philipp Lahm", "Oliver Kahn", "Bastian Schweinsteiger", "Thomas Müller"],
+        reponse: "Bastian Schweinsteiger",
+      },
+      {
+        question: "Quel club a remporté la Coupe UEFA 1981 avec un triplé d’Allan Simonsen en finale ?",
+        options: ["Borussia Mönchengladbach", "Hambourg", "Eintracht Francfort", "Brøndby"],
+        reponse: "Borussia Mönchengladbach",
+      },
+      {
+        question: "Parmi ces clubs, lequel n’a jamais gagné la Coupe des Coupes européenne ?",
+        options: ["Arsenal", "Barcelone", "Milan AC", "Paris Saint‑Germain"],
+        reponse: "Milan AC",
+      },
+      {
+        question: "Quel joueur a marqué le but en or lors de la finale de l’Euro 2000 contre l’Italie ?",
+        options: ["David Trezeguet", "Thierry Henry", "Sylvain Wiltord", "Zinédine Zidane"],
+        reponse: "David Trezeguet",
+      },
+      {
+        question: "Combien de fois Paolo Maldini a‑t‑il remporté la Ligue des Champions / Coupe des Clubs Champions avec l’AC Milan en tant que joueur ?",
+        options: ["3", "4", "5", "6"],
+        reponse: "5",
+      },
+      {
+        question: "Quel club a éliminé le Real Madrid en demi‑finale de Ligue des Champions 2003 avant de s’incliner face à Milan en finale ?",
+        options: ["Juventus", "Inter Milan", "Manchester United", "Dortmund"],
+        reponse: "Juventus",
+      },
+      {
+        question: "Quel joueur portugais, autre que Cristiano Ronaldo, a remporté le Ballon d’Or dans les années 1960 ?",
+        options: ["Eusébio", "Luis Figo", "Paulo Futre", "Aucun, c’est plus tard"],
+        reponse: "Eusébio",
+      },
+      {
+        question: "Lequel de ces stades n’a jamais accueilli de finale officielle de Ligue des Champions de l’UEFA ?",
+        options: ["San Siro", "Allianz Arena", "Parc des Princes", "Old Trafford"],
+        reponse: "Parc des Princes",
+      },
+      {
+        question: "Quel club anglais a perdu trois finales de Ligue des Champions avant de finalement remporter le trophée en 2012 ?",
+        options: ["Liverpool", "Arsenal", "Chelsea", "Leeds United"],
+        reponse: "Chelsea",
+      },
+      {
+        question: "Quel joueur espagnol est devenu le premier à atteindre 100 matches en Ligue des Champions uniquement avec Barcelone ?",
+        options: ["Andrés Iniesta", "Carles Puyol", "Xavi", "Sergio Busquets"],
+        reponse: "Xavi",
+      },
+      {
+        question: "Parmi ces clubs, lequel a remporté le plus de fois la Coupe des Coupes européenne ?",
+        options: ["Real Madrid", "Barcelone", "Milan AC", "Manchester United"],
+        reponse: "Barcelone",
+      },
+      {
+        question: "Quel entraîneur a remporté la Ligue des Champions avec deux clubs différents, Porto et l’Inter Milan ?",
+        options: ["Carlo Ancelotti", "José Mourinho", "Jupp Heynckes", "Ottmar Hitzfeld"],
+        reponse: "José Mourinho",
+      },
+      {
+        question: "Quel club a été surnommé \"Neverkusen\" après avoir terminé plusieurs fois deuxième en Bundesliga et perdu des finales européennes au début des années 2000 ?",
+        options: ["Schalke 04", "Hambourg", "Bayer Leverkusen", "Werder Brême"],
+        reponse: "Bayer Leverkusen",
+      },
+      {
+        question: "Quel joueur a inscrit un triplé en 24 minutes pour Manchester United contre le Bayern Munich lors de la Ligue des Champions 2010 ?",
+        options: ["Wayne Rooney", "Dimitar Berbatov", "Nani", "Aucun, ce match n’a pas vu de triplé anglais"],
+        reponse: "Aucun, ce match n’a pas vu de triplé anglais",
+      },
+      {
+        question: "Quel club néerlandais, en dehors de l’Ajax, a remporté la Coupe d’Europe des Clubs Champions / Ligue des Champions ?",
+        options: ["PSV Eindhoven", "Feyenoord", "Les deux", "Aucun"],
+        reponse: "Les deux",
+      },
+      {
+        question: "Quel joueur irlandais a marqué de nombreuses fois contre l’Italie et a été une icône de la Premier League avec Tottenham puis Liverpool dans les années 2000 ?",
+        options: ["Damien Duff", "Robbie Keane", "Roy Keane", "Niall Quinn"],
+        reponse: "Robbie Keane",
+      },
+      {
+        question: "Quel club a remporté la dernière édition de la Coupe des Coupes européenne en 1999 ?",
+        options: ["Lazio", "Chelsea", "Barcelone", "Parme"],
+        reponse: "Lazio",
+      },
+      {
+        question: "Quel joueur a marqué le but du titre pour Manchester City à la 93e minute lors de la saison 2011‑2012 de Premier League ?",
+        options: ["Carlos Tevez", "Sergio Agüero", "Mario Balotelli", "Edin Džeko"],
+        reponse: "Sergio Agüero",
+      },
+      {
+        question: "Quelle équipe a remporté l’Euro 1984 en France avec Michel Platini comme meilleur buteur ?",
+        options: ["France", "Espagne", "RFA", "Portugal"],
+        reponse: "France",
+      },
+      {
+        question: "Quel club écossais a remporté la Coupe des Clubs Champions en 1967 avec l’équipe surnommée les \"Lisbon Lions\" ?",
+        options: ["Rangers", "Celtic", "Aberdeen", "Hearts"],
+        reponse: "Celtic",
+      },
+      {
+        question: "Quel joueur allemand a marqué un triplé en finale de la Coupe de l’UEFA 1980 avec l’Eintracht Francfort ?",
+        options: ["Karl‑Heinz Rummenigge", "Horst Hrubesch", "Bernd Hölzenbein", "Aucun de ces joueurs"],
+        reponse: "Aucun de ces joueurs",
+      },
+      {
+        question: "Quel club a remporté trois fois de suite la Ligue Europa entre 2014 et 2016 ?",
+        options: ["Atlético de Madrid", "Sevilla FC", "Chelsea", "Villarreal"],
+        reponse: "Sevilla FC",
+      },
+      {
+        question: "Quel joueur a été capitaine du Portugal lors de sa victoire à l’Euro 2016 en finale contre la France, après la sortie sur blessure de Cristiano Ronaldo ?",
+        options: ["João Moutinho", "Pepe", "Nani", "Ricardo Carvalho"],
+        reponse: "Nani",
+      },
+      {
+        question: "Quel club anglais est le seul à avoir remporté la Premier League, la FA Cup, la League Cup et la Ligue des Champions au cours de la même saison civile (trophées répartis sur deux saisons) ?",
+        options: ["Manchester United", "Liverpool", "Chelsea", "Aucun club n’a réalisé cela"],
+        reponse: "Aucun club n’a réalisé cela",
+      },
+      {
+        question: "Quel joueur italien a raté son penalty lors de la séance de tirs au but de la finale de Coupe du Monde 1994 face au Brésil ?",
+        options: ["Roberto Baggio", "Franco Baresi", "Daniele Massaro", "Paolo Maldini"],
+        reponse: "Roberto Baggio",
+      },
+      {
+        question: "Quel club français est devenu le premier à remporter la Coupe Intertoto de l’UEFA en 1995 dans son format modernisé ?",
+        options: ["Lyon", "Strasbourg", "Bordeaux", "Montpellier"],
+        reponse: "Strasbourg",
+      },
+      {
+        question: "Quel milieu espagnol est le joueur le plus titré de l’histoire en sélections majeures (Euro + Coupe du Monde) avec l’Espagne entre 2008 et 2012 ?",
+        options: ["Xavi", "Andrés Iniesta", "Iker Casillas", "Sergio Ramos"],
+        reponse: "Iker Casillas",
+      },
+      {
+        question: "Quel club italien a remporté la Ligue des Champions 1985 dans un contexte marqué par la tragédie du Heysel ?",
+        options: ["Milan AC", "Inter Milan", "Juventus", "Roma"],
+        reponse: "Juventus",
+      },
+      {
+        question: "Quel club espagnol a remporté la Liga 2013‑2014 en allant chercher un nul décisif au Camp Nou lors de la dernière journée ?",
+        options: ["Real Madrid", "Sevilla FC", "Valence CF", "Atlético de Madrid"],
+        reponse: "Atlético de Madrid",
+      },
+      {
+        question: "Quel joueur gallois a remporté deux Ligues des Champions avec le Real Madrid en marquant en finale en 2014 et 2018 ?",
+        options: ["Ryan Giggs", "Gareth Bale", "Ian Rush", "Aaron Ramsey"],
+        reponse: "Gareth Bale",
+      },
+      {
+        question: "Quel club anglais a été sacré champion d’Europe en 1982 avec un but de Peter Withe en finale ?",
+        options: ["Aston Villa", "Nottingham Forest", "Liverpool", "Leeds United"],
+        reponse: "Aston Villa",
+      },
+      {
+        question: "Quel joueur néerlandais a remporté la Ligue des Champions avec trois clubs différents (Ajax, Milan, Real Madrid) ?",
+        options: ["Clarence Seedorf", "Edgar Davids", "Patrick Kluivert", "Wesley Sneijder"],
+        reponse: "Clarence Seedorf",
+      },
+      {
+        question: "Quel club a remporté la Coupe UEFA 2001 en gagnant une finale spectaculaire 5-4 contre Alavés ?",
+        options: ["Liverpool", "Valence CF", "Sevilla FC", "Galatasaray"],
+        reponse: "Liverpool",
+      },
+    ];
+
+    // État du jeu
+    let currentQuestionIndex = 0;
+    let score = 0;
+    let lives = 3;
+    let correctStreak = 0;
+    const maxLives = 3;
+    const QUESTION_TIME_LIMIT = 25; // secondes pour répondre
+    let timeRemaining = QUESTION_TIME_LIMIT;
+    let timerInterval = null;
+    let shuffledQuestions = [];
+    let questionLocked = false;
+
+    // Sélection des éléments
+    const startScreen = document.getElementById("start-screen");
+    const questionScreen = document.getElementById("question-screen");
+    const gameoverScreen = document.getElementById("gameover-screen");
+    const gameCard = document.getElementById("game-card");
+
+    const startBtn = document.getElementById("start-btn");
+    const retryBtn = document.getElementById("retry-btn");
+
+    const scoreEl = document.getElementById("score");
+    const livesEl = document.getElementById("lives");
+    const progressTextEl = document.getElementById("progress-text");
+
+    const questionTextEl = document.getElementById("question-text");
+    const optionsGridEl = document.getElementById("options-grid");
+    const questionCounterEl = document.getElementById("question-counter");
+    const timerEl = document.getElementById("timer");
+    const streakTextEl = document.getElementById("streak-text");
+
+    const finalScoreEl = document.getElementById("final-score");
+    const finalStatsEl = document.getElementById("final-stats");
+    const gameoverMessageEl = document.getElementById("gameover-message");
+
+    const toastEl = document.getElementById("toast");
+    const toastTextEl = document.getElementById("toast-text");
+    const toastCloseBtn = document.getElementById("toast-close");
+
+    let isPremium = false;
+
+    // --- Sauvegarde locale (score & vies & premium) ---
+    function loadStateFromStorage() {
+      try {
+        const storedLives = localStorage.getItem(STORAGE_KEY_LIVES);
+        const storedScore = localStorage.getItem(STORAGE_KEY_SCORE);
+        const storedPremium = localStorage.getItem(STORAGE_KEY_PREMIUM);
+        lives = storedLives !== null ? Math.max(0, parseInt(storedLives, 10) || 0) : maxLives;
+        score = storedScore !== null ? Math.max(0, parseInt(storedScore, 10) || 0) : 0;
+        isPremium = storedPremium === "true";
+      } catch (e) {
+        lives = maxLives;
+        score = 0;
+        isPremium = false;
+      }
+    }
+
+    function saveLivesToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_LIVES, String(lives));
+      } catch (e) {
+        // stockage indisponible, on ignore
+      }
+    }
+
+    function saveScoreToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_SCORE, String(score));
+      } catch (e) {
+        // stockage indisponible, on ignore
+      }
+    }
+
+    function savePremiumToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_PREMIUM, isPremium ? "true" : "false");
+      } catch (e) {
+        // stockage indisponible, on ignore
+      }
+    }
+
+    // Initialisation UI
+    function initUI() {
+      loadStateFromStorage();
+      if (isPremium) {
+        lives = maxLives;
+      }
+      scoreEl.textContent = score;
+      updateLivesDisplay();
+      updateProgressDisplay();
+
+      if (!isPremium && lives <= 0) {
+        document.getElementById("top-info").classList.remove("hidden");
+        showScreen("gameover-screen");
+        finalScoreEl.textContent = `${score}`;
+        finalStatsEl.innerHTML = `
+          Vies épuisées.<br />
+          Score sauvegardé : <strong>${score}</strong>
+        `;
+        return;
+      }
+
+      document.getElementById("top-info").classList.add("hidden"); // caché avant le match
+    }
+
+    function updateLivesDisplay() {
+      livesEl.innerHTML = "";
+      for (let i = 0; i < maxLives; i++) {
+        const span = document.createElement("span");
+        span.classList.add("heart");
+        if (!isPremium && i >= lives) {
+          span.classList.add("lost");
+        }
+        span.textContent = "❤️";
+        livesEl.appendChild(span);
+      }
+    }
+
+    function updateProgressDisplay() {
+      const total = shuffledQuestions.length || questions.length;
+      progressTextEl.textContent = `${Math.min(
+        currentQuestionIndex + 1,
+        total
+      )} / ${total}`;
+      questionCounterEl.textContent = `Question ${Math.min(
+        currentQuestionIndex + 1,
+        total
+      )} / ${total}`;
+    }
+
+    // --- Mélange des questions ---
+    function shuffleQuestions() {
+      const array = questions.slice();
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // --- Timer par question ---
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timeRemaining = QUESTION_TIME_LIMIT;
+      if (timerEl) {
+        timerEl.textContent = `⏱ ${timeRemaining} s`;
+      }
+    }
+
+    function startTimer() {
+      resetTimer();
+      timerInterval = setInterval(() => {
+        timeRemaining -= 1;
+        if (timerEl) {
+          timerEl.textContent = `⏱ ${Math.max(timeRemaining, 0)} s`;
+        }
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          if (!questionLocked) {
+            handleTimeout();
+          }
+        }
+      }, 1000);
+    }
+
+    function resetTimer() {
+      clearInterval(timerInterval);
+      timeRemaining = QUESTION_TIME_LIMIT;
+      if (timerEl) {
+        timerEl.textContent = `⏱ ${timeRemaining} s`;
+      }
+    }
+
+    function startTimer() {
+      resetTimer();
+      timerInterval = setInterval(() => {
+        timeRemaining -= 1;
+        if (timerEl) {
+          timerEl.textContent = `⏱ ${Math.max(timeRemaining, 0)} s`;
+        }
+        if (timeRemaining <= 0) {
+          clearInterval(timerInterval);
+          if (!questionLocked) {
+            handleTimeout();
+          }
+        }
+      }, 1000);
+    }
+
+    function showScreen(screenId) {
+      [startScreen, questionScreen, gameoverScreen].forEach((el) =>
+        el.classList.remove("active")
+      );
+      document.getElementById(screenId).classList.add("active");
+    }
+
+    function startGame() {
+      score = 0;
+      lives = maxLives;
+      correctStreak = 0;
+      currentQuestionIndex = 0;
+      shuffledQuestions = shuffleQuestions();
+      questionLocked = false;
+      resetTimer();
+
+      scoreEl.textContent = score;
+      updateLivesDisplay();
+      updateProgressDisplay();
+      streakTextEl.textContent = "Fais vibrer le stade !";
+
+      document.getElementById("top-info").classList.remove("hidden");
+      showScreen("question-screen");
+      loadCurrentQuestion();
+    }
+
+    function loadCurrentQuestion() {
+      const source = shuffledQuestions.length ? shuffledQuestions : questions;
+      const q = source[currentQuestionIndex];
+      if (!q) {
+        // Si on a épuisé toutes les questions, on recommence depuis le début du set mélangé
+        currentQuestionIndex = 0;
+        updateProgressDisplay();
+      }
+      const current = source[currentQuestionIndex];
+
+      questionTextEl.textContent = current.question;
+      optionsGridEl.innerHTML = "";
+      questionLocked = false;
+
+      current.options.forEach((opt, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option-btn";
+        btn.dataset.index = idx;
+
+        const indexSpan = document.createElement("span");
+        indexSpan.className = "index";
+        indexSpan.textContent = String.fromCharCode(65 + idx);
+
+        const labelSpan = document.createElement("span");
+        labelSpan.className = "option-label";
+        labelSpan.textContent = opt;
+
+        btn.appendChild(indexSpan);
+        btn.appendChild(labelSpan);
+
+        btn.addEventListener("click", () => handleAnswer(idx, btn));
+        optionsGridEl.appendChild(btn);
+      });
+
+      updateProgressDisplay();
+      startTimer();
+    }
+
+    function handleAnswer(selectedIndex, selectedButton) {
+      if (questionLocked) return;
+      questionLocked = true;
+      clearInterval(timerInterval);
+
+      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
+      const correctIndex = current.options.indexOf(current.reponse);
+      const isCorrect = selectedIndex === correctIndex;
+
+      // Désactiver tous les boutons pendant l’animation
+      const buttons = optionsGridEl.querySelectorAll(".option-btn");
+      buttons.forEach((btn) => btn.classList.add("disabled"));
+
+      if (isCorrect) {
+        handleCorrectAnswer(selectedButton, buttons);
+      } else {
+        handleWrongAnswer(selectedButton, buttons);
+      }
+    }
+
+    function handleCorrectAnswer(selectedButton, buttons) {
+      selectedButton.classList.add("correct");
+      score += 10;
+      correctStreak += 1;
+      scoreEl.textContent = score;
+      saveScoreToStorage();
+
+      if (correctStreak >= 3) {
+        streakTextEl.textContent = `Série 🔥 : ${correctStreak} bonnes réponses !`;
+      } else if (correctStreak === 1) {
+        streakTextEl.textContent = "Bien joué ! Le stade t’applaudit.";
+      } else {
+        streakTextEl.textContent = `Tu enchaînes (${correctStreak})… le coach te regarde.`;
+      }
+
+      showToast("Bonne réponse, tu fais lever le stade !");
+
+      setTimeout(() => {
+        currentQuestionIndex =
+          (currentQuestionIndex + 1) % questions.length;
+        buttons.forEach((btn) => {
+          btn.classList.remove("correct", "wrong", "disabled");
+        });
+        loadCurrentQuestion();
+      }, 700);
+    }
+
+    function handleWrongAnswer(selectedButton, buttons) {
+      selectedButton.classList.add("wrong");
+      correctStreak = 0;
+      streakTextEl.textContent =
+        "Aïe… tout le virage vient de siffler ton nom.";
+
+      if (!isPremium) {
+      lives -= 1;
+      if (lives < 0) lives = 0;
+      updateLivesDisplay();
+      saveLivesToStorage();
+      }
+      saveLivesToStorage();
+
+      // Shake animation sur la carte principale
+      gameCard.classList.add("shake");
+
+      showToast("Mauvaise réponse. Tu viens de perdre une vie…");
+
+      setTimeout(() => {
+        gameCard.classList.remove("shake");
+      }, 380);
+
+      // Montrer aussi la bonne réponse
+      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
+      const correctIndex = current.options.indexOf(current.reponse);
+      const correctButton = Array.from(buttons).find(
+        (btn) => Number(btn.dataset.index) === correctIndex
+      );
+      if (correctButton && correctButton !== selectedButton) {
+        correctButton.classList.add("correct");
+      }
+
+      setTimeout(() => {
+        if (lives <= 0) {
+          endGame();
+        } else {
+          currentQuestionIndex =
+            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : questions).length;
+          buttons.forEach((btn) => {
+            btn.classList.remove("correct", "wrong", "disabled");
+          });
+          loadCurrentQuestion();
+        }
+      }, 950);
+    }
+
+    function handleTimeout() {
+      const buttons = optionsGridEl.querySelectorAll(".option-btn");
+      buttons.forEach((btn) => btn.classList.add("disabled"));
+      questionLocked = true;
+
+      correctStreak = 0;
+      streakTextEl.textContent = "Temps écoulé… le stade soupire.";
+
+      if (!isPremium) {
+        lives -= 1;
+        if (lives < 0) lives = 0;
+        updateLivesDisplay();
+        saveLivesToStorage();
+      }
+
+      gameCard.classList.add("shake");
+      showToast("Temps écoulé ! Tu perds une vie.");
+
+      setTimeout(() => {
+        gameCard.classList.remove("shake");
+      }, 380);
+
+      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
+      const correctIndex = current.options.indexOf(current.reponse);
+      const correctButton = Array.from(buttons).find(
+        (btn) => Number(btn.dataset.index) === correctIndex
+      );
+      if (correctButton) {
+        correctButton.classList.add("correct");
+      }
+
+      setTimeout(() => {
+        if (lives <= 0) {
+          endGame();
+        } else {
+          currentQuestionIndex =
+            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : questions).length;
+          buttons.forEach((btn) => {
+            btn.classList.remove("correct", "wrong", "disabled");
+          });
+          loadCurrentQuestion();
+        }
+      }, 950);
+    }
+
+    function endGame() {
+      showScreen("gameover-screen");
+      finalScoreEl.textContent = `${score}`;
+      const answered = currentQuestionIndex + 1;
+      const total = (shuffledQuestions.length ? shuffledQuestions : questions).length;
+      const accuracy =
+        score === 0 ? 0 : Math.round((score / (total * 10)) * 100);
+
+      finalStatsEl.innerHTML = `
+        ${answered} / ${total} questions jouées<br />
+        Précision : <strong>${accuracy}%</strong><br />
+        Vies restantes : <strong>${lives}</strong>
+      `;
+
+      let message;
+      if (score === 0) {
+        message =
+          "Zéro point… même le ramasseur de balles te dribble. Reviens quand tu connaîtras au moins l’hymne du club.";
+      } else if (score < 20) {
+        message =
+          "On va dire que tu étais blessé. Les supporters sont partagés… mais surtout déçus.";
+      } else if (score < 40) {
+        message =
+          "Pas mal, tu restes sur le banc, mais le coach commence à mémoriser ton nom.";
+      } else {
+        message =
+          "Tu as régalé le stade ! Mais si tu veux devenir une vraie légende, il va falloir acheter quelques vies de plus…";
+      }
+      gameoverMessageEl.textContent = message;
+    }
+
+    // Toast simple
+    let toastTimeout;
+    function showToast(message) {
+      toastTextEl.textContent = message;
+      toastEl.classList.add("show");
+
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+      toastTimeout = setTimeout(() => {
+        toastEl.classList.remove("show");
+      }, 2600);
+    }
+
+    toastCloseBtn.addEventListener("click", () => {
+      toastEl.classList.remove("show");
+      if (toastTimeout) {
+        clearTimeout(toastTimeout);
+      }
+    });
+
+    // --- Système Instagram Premium (vies infinies) ---
+    const INSTAGRAM_URL = "https://www.instagram.com/emma_lm_4"; // compte Instagram officiel
+    let igVerificationInProgress = false;
+    let igCountdownDone = false;
+    let igTabReturned = false;
+
+    function tryCompletePremiumUnlock() {
+      if (igVerificationInProgress && igCountdownDone && igTabReturned) {
+        isPremium = true;
+        savePremiumToStorage();
+        lives = maxLives;
+        saveLivesToStorage();
+        updateLivesDisplay();
+        const premiumStatusEl = document.getElementById("premium-status");
+        if (premiumStatusEl) {
+          premiumStatusEl.textContent = "Abonnement vérifié ! Profitez du mode Premium (vies infinies).";
+        }
+      }
+    }
+
+    function startInstagramVerificationFlow() {
+      igVerificationInProgress = true;
+      igCountdownDone = false;
+      igTabReturned = false;
+
+      const premiumStatusEl = document.getElementById("premium-status");
+      if (premiumStatusEl) {
+        premiumStatusEl.textContent =
+          "Vérification de l’abonnement en cours... ne fermez pas cette page.";
+      }
+
+      window.open(INSTAGRAM_URL, "_blank");
+
+      setTimeout(() => {
+        igCountdownDone = true;
+        tryCompletePremiumUnlock();
+      }, 5000);
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (!igVerificationInProgress) return;
+      if (document.visibilityState === "visible") {
+        igTabReturned = true;
+        tryCompletePremiumUnlock();
+      }
+    });
+
+    const igPremiumBtn = document.getElementById("ig-premium-btn");
+    if (igPremiumBtn) {
+      igPremiumBtn.addEventListener("click", () => {
+        startInstagramVerificationFlow();
+      });
+    }
+
+    // --- Paiement Flutterwave Inline ---
+    function generateTxRef() {
+      return "UFQ-" + Date.now() + "-" + Math.floor(Math.random() * 1e6);
+    }
+
+    function makePayment() {
+      if (typeof FlutterwaveCheckout !== "function") {
+        alert("Le module de paiement n’est pas disponible. Réessaie dans un instant.");
+        return;
+      }
+
+      FlutterwaveCheckout({
+        public_key: "FLWPUBK_TEST-xxxxxxxxxxxxxxxxxxxxx-X",
+        tx_ref: generateTxRef(),
+        amount: 500,
+        currency: "CDF",
+        payment_options: "mobilemoney, card",
+        customer: {
+          email: "joueur@quiz.com",
+        },
+        customizations: {
+          title: "Ultimate Foot Quiz",
+          description: "Achat de 3 vies",
+        },
+        callback: function (response) {
+          if (response && (response.status === "successful" || response.status === "completed")) {
+            lives = (typeof lives === "number" ? lives : 0) + 3;
+            saveLivesToStorage();
+            try {
+              if (typeof closePaymentModal === "function") {
+                closePaymentModal();
+              } else if (typeof close_payment_modal === "function") {
+                close_payment_modal();
+              }
+            } catch (e) {
+              // fermeture déjà gérée
+            }
+            window.location.reload();
+          }
+        },
+        onclose: function () {
+          // rien de spécial à faire à la fermeture manuelle
+        },
+      });
+    }
+
+    // Event listeners principaux
+    startBtn.addEventListener("click", startGame);
+    retryBtn.addEventListener("click", () => {
+      startGame();
+    });
+
+    // Lancer l’UI de base
+    initUI();
+  </script>
+</body>
+</html>
