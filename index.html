@@ -5,11 +5,19 @@
   <title>Ultimate Foot Quiz : Légendes Européennes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google Font -->
+  <!-- Google Fonts (Design system: Inter/Poppins) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap"
     rel="stylesheet"
   />
 
@@ -18,24 +26,52 @@
 
   <style>
     :root {
-      --bg-main: #050712;
-      --bg-card: rgba(10, 12, 30, 0.96);
-      --bg-card-soft: rgba(12, 16, 42, 0.96);
-      --accent-mazembe: #ffffff;
-      --accent-mazembe-dark: #141414;
-      --accent-lupopo: #ffd600;
-      --accent-lupopo-soft: #ffed99;
-      --accent-blue: #1d4ed8;
-      --accent-red: #ef4444;
-      --accent-green: #22c55e;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --border-soft: rgba(148, 163, 184, 0.25);
-      --shadow-soft: 0 22px 45px rgba(15, 23, 42, 0.9);
-      --radius-lg: 22px;
-      --radius-md: 14px;
+      /* Design tokens (from design.json) */
+      --brand-primary: #6a5ae0;
+      --brand-secondary: #9087e5;
+      --brand-accent: #ff8f3e;
+
+      --success: #53d1b6;
+      --error: #ff6b6b;
+      --warning: #ffbe3c;
+      --info: #4a90e2;
+
+      /* Dark mode palette */
+      --bg: #050712;
+      --surface: rgba(255, 255, 255, 0.06);
+      --text-primary: #f9fafb;
+      --text-secondary: rgba(229, 231, 235, 0.72);
+      --border: rgba(148, 163, 184, 0.18);
+
+      --shadow-card: 0px 18px 44px rgba(0, 0, 0, 0.6);
+      --shadow-primary: 0px 14px 26px rgba(106, 90, 224, 0.35);
+
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 100px;
+
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --card-padding: 20px;
+
       --transition-fast: 0.18s ease-out;
       --transition-normal: 0.25s ease-out;
+
+      /* Mode-aware mapping (still using design tokens) */
+      --primary: var(--brand-primary);
+      --secondary: var(--brand-secondary);
+      --accent: var(--brand-accent);
+    }
+
+    body.mode-foot {
+      --primary: var(--brand-primary);
+      --accent: var(--info);
+    }
+
+    body.mode-basket {
+      --primary: var(--brand-accent);
+      --accent: var(--warning);
     }
 
     * {
@@ -45,14 +81,15 @@
     }
 
     body {
-      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: radial-gradient(circle at top, #0b1022 0, #030712 45%, #000000 100%);
-      color: var(--text-main);
+      font-family: "Inter", "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(1200px 600px at 50% -10%, rgba(106, 90, 224, 0.22), transparent 55%),
+        linear-gradient(180deg, #000000, #05210f);
+      color: var(--text-primary);
       min-height: 100vh;
       display: flex;
       align-items: stretch;
       justify-content: center;
-      padding: 16px;
+      padding: var(--space-3);
       -webkit-font-smoothing: antialiased;
     }
 
@@ -63,14 +100,13 @@
     }
 
     .card {
-      background: linear-gradient(145deg, var(--bg-card), var(--bg-card-soft));
+      background: rgba(17, 24, 39, 0.72);
       border-radius: var(--radius-lg);
-      box-shadow: var(--shadow-soft);
-      border: 1px solid var(--border-soft);
-      padding: 18px 16px 20px;
+      box-shadow: var(--shadow-card);
+      border: 2px solid var(--border);
+      padding: var(--card-padding);
       overflow: hidden;
       position: relative;
-      backdrop-filter: blur(18px);
     }
 
     @media (min-width: 480px) {
@@ -96,23 +132,23 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 4px 10px;
-      border-radius: 999px;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
       font-size: 11px;
       font-weight: 500;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      background: rgba(31, 41, 55, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.45);
-      color: var(--text-muted);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      color: var(--text-secondary);
     }
 
     .badge-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #22c55e 0, #15803d 60%, transparent 100%);
-      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.25);
+      background: var(--primary);
+      box-shadow: 0 0 0 4px rgba(106, 90, 224, 0.18);
     }
 
     .title {
@@ -123,21 +159,17 @@
     }
 
     .title span.mazembe {
-      background: linear-gradient(135deg, #ffffff, #d1d5db);
-      -webkit-background-clip: text;
-      color: transparent;
+      color: var(--text-primary);
     }
 
     .title span.lupopo {
-      background: linear-gradient(135deg, #ffd600, #f97316);
-      -webkit-background-clip: text;
-      color: transparent;
+      color: var(--primary);
     }
 
     .subtitle {
       margin-top: 6px;
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.5;
     }
 
@@ -145,16 +177,11 @@
       width: 88px;
       height: 88px;
       border-radius: 24px;
-      background:
-        radial-gradient(circle at 15% 0, rgba(250, 250, 250, 0.95) 0, transparent 50%),
-        radial-gradient(circle at 85% 110%, rgba(251, 191, 36, 1) 0, transparent 55%),
-        linear-gradient(135deg, #020617, #020617);
+      background: rgba(2, 6, 23, 0.55);
       position: relative;
       overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      box-shadow:
-        0 16px 32px rgba(15, 23, 42, 0.7),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-card);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -165,8 +192,8 @@
       width: 78%;
       height: 78%;
       border-radius: 999px;
-      border: 1px solid rgba(15, 23, 42, 0.85);
-      background: radial-gradient(circle at 30% 18%, #111827 0, #020617 55%, #000000 100%);
+      border: 2px solid var(--border);
+      background: rgba(2, 6, 23, 0.6);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -177,10 +204,9 @@
       position: absolute;
       inset: -30%;
       background:
-        radial-gradient(circle at 0 50%, rgba(239, 68, 68, 0.18) 0, transparent 60%),
-        radial-gradient(circle at 100% 50%, rgba(56, 189, 248, 0.21) 0, transparent 60%);
-      mix-blend-mode: screen;
-      opacity: 0.8;
+        radial-gradient(circle at 0 50%, rgba(106, 90, 224, 0.14) 0, transparent 60%),
+        radial-gradient(circle at 100% 50%, rgba(255, 143, 62, 0.14) 0, transparent 60%);
+      opacity: 0.85;
     }
 
     .hero-vs {
@@ -194,30 +220,28 @@
       font-size: 11px;
       letter-spacing: 0.12em;
       font-weight: 600;
-      color: #e5e7eb;
+      color: var(--text-primary);
     }
 
     .hero-vs span.team {
       padding: 3px 7px;
       border-radius: 999px;
       font-size: 10px;
-      border: 1px solid rgba(209, 213, 219, 0.35);
-      backdrop-filter: blur(4px);
+      border: 2px solid var(--border);
+      background: var(--surface);
     }
 
     .hero-vs span.mazembe-chip {
-      background: rgba(15, 23, 42, 0.9);
-      color: #f9fafb;
+      color: var(--text-primary);
     }
 
     .hero-vs span.lupopo-chip {
-      background: rgba(250, 250, 250, 0.9);
-      color: #111827;
+      color: var(--text-primary);
     }
 
     .hero-vs span.vs {
       font-size: 10px;
-      color: #9ca3af;
+      color: var(--text-secondary);
     }
 
     /* Top info bar */
@@ -237,11 +261,11 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(75, 85, 99, 0.7);
-      color: #e5e7eb;
+      padding: 8px 16px;
+      border-radius: var(--radius-pill);
+      background: var(--surface);
+      border: 2px solid var(--border);
+      color: var(--text-primary);
       min-height: 24px;
     }
 
@@ -251,7 +275,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .score-value {
@@ -267,12 +291,39 @@
     }
 
     .lives .heart {
-      filter: drop-shadow(0 0 4px rgba(248, 113, 113, 0.7));
+      filter: none;
+      transition:
+        opacity var(--transition-normal),
+        transform var(--transition-normal),
+        filter var(--transition-normal);
     }
 
     .lives .heart.lost {
       opacity: 0.25;
       filter: none;
+      transform: scale(0.8);
+      filter: grayscale(1);
+    }
+
+    .lives.low .heart:not(.lost) {
+      color: #f97316;
+      text-shadow: 0 0 8px rgba(249, 115, 22, 0.8);
+      animation: pulseHeart 0.9s ease-in-out infinite;
+    }
+
+    @keyframes pulseHeart {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1.15);
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
     .progress-chip span.value {
@@ -329,16 +380,16 @@
     .primary-btn {
       width: 100%;
       margin-top: 14px;
-      padding: 12px 14px;
+      height: 56px;
+      padding: 0 16px;
       border-radius: 999px;
       border: none;
       outline: none;
       cursor: pointer;
-      background: linear-gradient(135deg, #eab308, #f97316);
-      color: #020617;
+      background: var(--primary);
+      color: #ffffff;
       box-shadow:
-        0 14px 30px rgba(251, 191, 36, 0.45),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+        var(--shadow-primary);
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -359,9 +410,7 @@
     .primary-btn:hover {
       transform: translateY(-1px) scale(1.01);
       filter: brightness(1.04);
-      box-shadow:
-        0 18px 40px rgba(251, 191, 36, 0.55),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
+      box-shadow: 0px 12px 24px rgba(106, 90, 224, 0.28);
     }
 
     .primary-btn:active {
@@ -378,10 +427,10 @@
       gap: 6px;
       padding: 4px 9px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.92);
-      border: 1px solid rgba(75, 85, 99, 0.85);
+      background: var(--surface);
+      border: 2px solid var(--border);
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 8px;
@@ -391,7 +440,7 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: radial-gradient(circle at 30% 30%, #38bdf8 0, #1d4ed8 65%, transparent 100%);
+      background: var(--primary);
     }
 
     .question-text {
@@ -399,11 +448,160 @@
       line-height: 1.6;
       margin-bottom: 12px;
       font-weight: 500;
+      text-align: center;
+    }
+
+    body.mode-basket .question-text {
+      font-family: "Bebas Neue", "Poppins", system-ui, sans-serif;
+      letter-spacing: 0.02em;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+
+    /* Linear progress bar (8px height) */
+    .progress-bar {
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.14);
+      overflow: hidden;
+      border: 2px solid var(--border);
+    }
+
+    .progress-bar > .fill {
+      height: 100%;
+      width: 0%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width var(--transition-normal);
+    }
+
+    /* Sport select screen */
+    .select-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-align: center;
+      margin: 6px 0 8px;
+    }
+
+    .select-subtitle {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 14px;
+    }
+
+    .select-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .select-btn {
+      width: 100%;
+      padding: 14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.85);
+      transition:
+        transform var(--transition-fast),
+        border-color var(--transition-fast),
+        background var(--transition-fast),
+        filter var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .select-btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(209, 213, 219, 0.7);
+      filter: brightness(1.04);
+    }
+
+    .select-btn .left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .select-btn .emoji {
+      font-size: 22px;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      background: rgba(2, 6, 23, 0.7);
+    }
+
+    .select-btn .label {
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .select-btn .hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .select-btn .arrow {
+      color: rgba(209, 213, 219, 0.85);
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .select-btn.foot {
+      background:
+        radial-gradient(circle at 10% 0, rgba(34, 197, 94, 0.22) 0, transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(56, 189, 248, 0.22) 0, transparent 55%),
+        rgba(15, 23, 42, 0.92);
+    }
+
+    .select-btn.basket {
+      background:
+        radial-gradient(circle at 10% 0, rgba(251, 146, 60, 0.25) 0, transparent 55%),
+        radial-gradient(circle at 90% 120%, rgba(249, 115, 22, 0.22) 0, transparent 55%),
+        rgba(2, 6, 23, 0.95);
+      border-color: rgba(251, 146, 60, 0.35);
+    }
+
+    /* Transition between screens */
+    .card.transition-pop {
+      animation: popIn 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    @keyframes popIn {
+      from {
+        transform: translateY(8px) scale(0.985);
+        filter: saturate(0.95);
+      }
+      to {
+        transform: translateY(0) scale(1);
+        filter: saturate(1);
+      }
     }
 
     .question-meta {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
@@ -413,7 +611,7 @@
     }
 
     .question-meta span.points {
-      color: var(--accent-lupopo-soft);
+      color: var(--primary);
       font-weight: 500;
     }
 
@@ -426,11 +624,11 @@
 
     .option-btn {
       width: 100%;
-      padding: 12px 13px;
-      border-radius: 18px;
-      border: 1px solid rgba(75, 85, 99, 0.9);
-      background: rgba(15, 23, 42, 0.9);
-      color: #e5e7eb;
+      padding: 14px 14px;
+      border-radius: var(--radius-md);
+      border: 2px solid var(--border);
+      background: rgba(2, 6, 23, 0.55);
+      color: var(--text-primary);
       font-size: 14px;
       text-align: left;
       cursor: pointer;
@@ -444,7 +642,7 @@
         box-shadow var(--transition-fast),
         color var(--transition-normal),
         opacity var(--transition-normal);
-      box-shadow: 0 4px 10px rgba(15, 23, 42, 0.75);
+      box-shadow: 0 8px 18px rgba(106, 90, 224, 0.06);
       touch-action: manipulation;
     }
 
@@ -457,9 +655,9 @@
       justify-content: center;
       font-size: 11px;
       font-weight: 600;
-      background: radial-gradient(circle at 30% 20%, #111827 0, #020617 75%);
-      color: var(--text-muted);
-      border: 1px solid rgba(75, 85, 99, 0.9);
+      background: var(--surface);
+      color: var(--text-secondary);
+      border: 2px solid var(--border);
       flex-shrink: 0;
     }
 
@@ -470,8 +668,8 @@
 
     .option-btn:hover {
       transform: translateY(-1px);
-      border-color: rgba(148, 163, 184, 0.85);
-      box-shadow: 0 8px 18px rgba(15, 23, 42, 0.9);
+      border-color: rgba(106, 90, 224, 0.55);
+      box-shadow: 0 12px 22px rgba(106, 90, 224, 0.1);
     }
 
     .option-btn:active {
@@ -480,29 +678,29 @@
     }
 
     .option-btn.correct {
-      background: linear-gradient(135deg, #166534, #22c55e);
-      border-color: rgba(22, 163, 74, 0.9);
-      color: #ecfdf5;
-      box-shadow: 0 10px 20px rgba(22, 163, 74, 0.7);
+      background: rgba(83, 209, 182, 0.14);
+      border-color: var(--success);
+      color: var(--text-primary);
+      box-shadow: 0 12px 22px rgba(83, 209, 182, 0.16);
     }
 
     .option-btn.correct span.index {
-      background: rgba(15, 118, 110, 0.9);
-      border-color: rgba(22, 163, 74, 0.9);
-      color: #ecfdf5;
+      background: rgba(83, 209, 182, 0.18);
+      border-color: var(--success);
+      color: var(--text-primary);
     }
 
     .option-btn.wrong {
-      background: linear-gradient(135deg, #7f1d1d, #ef4444);
-      border-color: rgba(248, 113, 113, 0.95);
-      color: #fef2f2;
-      box-shadow: 0 10px 20px rgba(248, 113, 113, 0.7);
+      background: rgba(255, 107, 107, 0.12);
+      border-color: var(--error);
+      color: var(--text-primary);
+      box-shadow: 0 12px 22px rgba(255, 107, 107, 0.14);
     }
 
     .option-btn.wrong span.index {
-      background: rgba(127, 29, 29, 0.95);
-      border-color: rgba(248, 113, 113, 0.95);
-      color: #fee2e2;
+      background: rgba(255, 107, 107, 0.16);
+      border-color: var(--error);
+      color: var(--text-primary);
     }
 
     .option-btn.disabled {
@@ -517,14 +715,15 @@
       justify-content: space-between;
       gap: 10px;
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       flex-wrap: wrap;
     }
 
     .streak-pill {
       padding: 5px 9px;
-      border-radius: 999px;
-      border: 1px dashed rgba(148, 163, 184, 0.75);
+      border-radius: var(--radius-pill);
+      border: 2px solid var(--border);
+      background: var(--surface);
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -534,8 +733,7 @@
       width: 8px;
       height: 8px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%, #f97316 0, #ea580c 60%, transparent 100%);
-      box-shadow: 0 0 12px rgba(249, 115, 22, 0.9);
+      background: var(--accent);
     }
 
     /* Game over screen */
@@ -553,7 +751,7 @@
 
     .gameover-subtitle {
       font-size: 12px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.7;
     }
 
@@ -561,10 +759,8 @@
       margin: 12px 0;
       padding: 12px 12px 13px;
       border-radius: var(--radius-md);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.15) 0, transparent 60%),
-        radial-gradient(circle at 100% 100%, rgba(251, 191, 36, 0.18) 0, transparent 55%),
-        rgba(15, 23, 42, 0.9);
-      border: 1px solid rgba(75, 85, 99, 0.95);
+      background: var(--surface);
+      border: 2px solid var(--border);
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -579,7 +775,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .final-score-value {
@@ -591,19 +787,19 @@
     .final-score-value span {
       font-size: 13px;
       font-weight: 500;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       margin-left: 4px;
     }
 
     .final-stats {
       font-size: 11px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
       line-height: 1.5;
       text-align: right;
     }
 
     .final-stats strong {
-      color: var(--accent-lupopo-soft);
+      color: var(--primary);
       font-weight: 600;
     }
 
@@ -683,11 +879,12 @@
 
     .secondary-btn {
       width: 100%;
-      padding: 10px 12px;
+      height: 56px;
+      padding: 0 16px;
       border-radius: 999px;
-      border: 1px dashed rgba(148, 163, 184, 0.7);
-      background: rgba(15, 23, 42, 0.85);
-      color: #e5e7eb;
+      border: 2px solid var(--border);
+      background: rgba(2, 6, 23, 0.55);
+      color: var(--primary);
       font-size: 13px;
       font-weight: 500;
       cursor: pointer;
@@ -703,8 +900,8 @@
 
     .secondary-btn:hover {
       transform: translateY(-1px);
-      border-color: rgba(209, 213, 219, 0.85);
-      background: rgba(15, 23, 42, 0.95);
+      border-color: rgba(106, 90, 224, 0.45);
+      background: rgba(2, 6, 23, 0.7);
     }
 
     .secondary-btn:active {
@@ -720,15 +917,15 @@
       margin-inline: auto;
       padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(15, 23, 42, 0.98);
-      color: #e5e7eb;
+      background: rgba(2, 6, 23, 0.85);
+      color: var(--text-primary);
       font-size: 11px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      box-shadow: 0 20px 40px rgba(15, 23, 42, 1);
+      border: 2px solid var(--border);
+      box-shadow: var(--shadow-card);
       opacity: 0;
       transform: translateY(12px);
       pointer-events: none;
@@ -748,7 +945,7 @@
       text-transform: uppercase;
       letter-spacing: 0.16em;
       font-size: 10px;
-      color: var(--text-muted);
+      color: var(--text-secondary);
     }
 
     .toast strong {
@@ -760,9 +957,10 @@
       border-radius: 999px;
       padding: 4px 9px;
       font-size: 10px;
-      background: rgba(31, 41, 55, 1);
-      color: #e5e7eb;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-primary);
       cursor: pointer;
+      border: 2px solid var(--border);
     }
 
     /* Animations */
@@ -828,16 +1026,6 @@
             <strong>vrai football européen</strong>… et reste dans la légende.
           </p>
         </div>
-        <div class="hero-badge-side" aria-hidden="true">
-          <div class="hero-badge-inner">
-            <div class="hero-lines"></div>
-            <div class="hero-vs">
-              <span class="team mazembe-chip">Légendes</span>
-              <span class="vs">vs</span>
-              <span class="team lupopo-chip">Challenger</span>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- Top info (visible in game / gameover) -->
@@ -859,7 +1047,41 @@
       </div>
 
       <!-- Start Screen -->
-      <div class="screen active" id="start-screen">
+      <div class="screen active" id="sport-select-screen">
+        <div class="screen-body">
+          <div class="select-title">Choisis ton terrain</div>
+          <div class="select-subtitle">
+            Deux modes, même système de vies et Premium. Sélectionne une catégorie pour commencer.
+          </div>
+
+          <div class="select-grid">
+            <button class="select-btn foot" id="select-foot-btn" type="button">
+              <span class="left">
+                <span class="emoji">⚽</span>
+                <span>
+                  <div class="label">Football Européen</div>
+                  <div class="hint">LDC, Euros, clubs mythiques • 50+ questions</div>
+                </span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+
+            <button class="select-btn basket" id="select-basket-btn" type="button">
+              <span class="left">
+                <span class="emoji">🏀</span>
+                <span>
+                  <div class="label">NBA Legends</div>
+                  <div class="hint">MVP, records, drafts, franchises • 50+ questions</div>
+                </span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Start Screen -->
+      <div class="screen" id="start-screen">
         <div class="screen-body">
           <div class="start-highlight">
             <strong>Règle du jeu :</strong><br />
@@ -888,6 +1110,9 @@
       <!-- Question Screen -->
       <div class="screen" id="question-screen">
         <div class="screen-body">
+          <div class="progress-bar" id="progress-bar" aria-hidden="true">
+            <div class="fill" id="progress-bar-fill"></div>
+          </div>
           <div class="question-tag">
             <span class="question-tag-dot"></span>
             <span>Round spécial football européen</span>
@@ -970,14 +1195,15 @@
     // Lien de paiement (non utilisé directement, Flutterwave gère l'encaissement)
     const PAYMENT_LINK = "https://google.com";
 
-    // --- Clés de stockage local pour score, vies et premium ---
+    // --- Clés de stockage local pour score, vies, premium et mode ---
     const STORAGE_KEY_SCORE = "ufq_score";
     const STORAGE_KEY_LIVES = "ufq_lives";
     const STORAGE_KEY_PREMIUM = "ufq_is_premium";
+    const STORAGE_KEY_MODE = "ufq_mode"; // "foot" | "basket"
 
-    // Base de 50 questions sur le football européen (LDC, grands championnats, Euros, etc.)
+    // Base de 50+ questions sur le football européen (LDC, grands championnats, Euros, etc.)
     // Format : { question, options: [A,B,C,D], reponse: "texte exact" }
-    const questions = [
+    const questionsFoot = [
       {
         question: "Quel joueur est le meilleur buteur de l’histoire de la Ligue des Champions de l’UEFA ?",
         options: ["Lionel Messi", "Cristiano Ronaldo", "Robert Lewandowski", "Karim Benzema"],
@@ -1717,6 +1943,189 @@
         options: ["Liverpool", "Valence CF", "Sevilla FC", "Galatasaray"],
         reponse: "Liverpool",
       },
+      {
+        question: "Quel club français a remporté la première Ligue des Champions sous ce nom moderne en 1993 ?",
+        options: ["Marseille", "Paris Saint-Germain", "Monaco", "Lyon"],
+        reponse: "Marseille",
+      },
+      {
+        question: "Quel joueur portugais a inscrit un triplé en finale de Ligue des Champions 2018 pour le Real Madrid ?",
+        options: ["Cristiano Ronaldo", "Gareth Bale", "Karim Benzema", "Aucun, il n’y a pas eu de triplé"],
+        reponse: "Aucun, il n’y a pas eu de triplé",
+      },
+      {
+        question: "Quel club anglais a remporté la Premier League 2015-2016 contre toute attente ?",
+        options: ["Leicester City", "Liverpool", "Arsenal", "Tottenham"],
+        reponse: "Leicester City",
+      },
+    ];
+
+    // Base de 50+ questions NBA (mix moyen/difficile)
+    const questionsBasket = [
+      { question: "Dans quelle équipe jouait Kevin Durant en 2012 ?", options: ["Oklahoma City Thunder", "Golden State Warriors", "Brooklyn Nets", "Seattle SuperSonics"], reponse: "Oklahoma City Thunder" },
+      { question: "Qui a été MVP de la saison régulière en 2011 (le plus jeune de l'histoire) ?", options: ["Derrick Rose", "LeBron James", "Kevin Durant", "Kobe Bryant"], reponse: "Derrick Rose" },
+      { question: "Qui détient le record de points marqués en un seul match (100 points) ?", options: ["Wilt Chamberlain", "Kobe Bryant", "Michael Jordan", "Elgin Baylor"], reponse: "Wilt Chamberlain" },
+      { question: "Qui était le premier choix de la Draft NBA 2023 ?", options: ["Victor Wembanyama", "Scoot Henderson", "Brandon Miller", "Amen Thompson"], reponse: "Victor Wembanyama" },
+      { question: "De quel pays est originaire Nikola Jokić ?", options: ["Serbie", "Croatie", "Slovénie", "Grèce"], reponse: "Serbie" },
+      { question: "Quel joueur est le roi du triple-double en carrière (record NBA) ?", options: ["Russell Westbrook", "Oscar Robertson", "Magic Johnson", "Jason Kidd"], reponse: "Russell Westbrook" },
+      { question: "Quelle équipe joue au Madison Square Garden ?", options: ["New York Knicks", "Brooklyn Nets", "Boston Celtics", "Philadelphia 76ers"], reponse: "New York Knicks" },
+      { question: "Quel coach est associé aux bagues avec les Bulls et les Lakers ?", options: ["Phil Jackson", "Gregg Popovich", "Pat Riley", "Doc Rivers"], reponse: "Phil Jackson" },
+      { question: "Quelle franchise a sélectionné LeBron James à la Draft 2003 ?", options: ["Cleveland Cavaliers", "Miami Heat", "Los Angeles Lakers", "Orlando Magic"], reponse: "Cleveland Cavaliers" },
+      { question: "Quelle équipe a remporté le titre NBA 2016 après être menée 3-1 en Finales ?", options: ["Cleveland Cavaliers", "Golden State Warriors", "San Antonio Spurs", "Miami Heat"], reponse: "Cleveland Cavaliers" },
+
+      { question: "Quel joueur a marqué 81 points dans un match NBA en 2006 ?", options: ["Kobe Bryant", "James Harden", "Allen Iverson", "Tracy McGrady"], reponse: "Kobe Bryant" },
+      { question: "Quelle équipe a la meilleure saison régulière de l'histoire (73-9 en 2016) ?", options: ["Golden State Warriors", "Chicago Bulls", "Los Angeles Lakers", "Boston Celtics"], reponse: "Golden State Warriors" },
+      { question: "Qui a remporté les Finales NBA 2014 (MVP des Finales : Kawhi Leonard) ?", options: ["San Antonio Spurs", "Miami Heat", "Golden State Warriors", "Oklahoma City Thunder"], reponse: "San Antonio Spurs" },
+      { question: "Quel joueur détient le record de contres en carrière en NBA ?", options: ["Hakeem Olajuwon", "Dikembe Mutombo", "Kareem Abdul-Jabbar", "Shaquille O'Neal"], reponse: "Hakeem Olajuwon" },
+      { question: "Quel joueur détient le record d'interceptions en carrière en NBA ?", options: ["John Stockton", "Gary Payton", "Michael Jordan", "Jason Kidd"], reponse: "John Stockton" },
+      { question: "Quel joueur détient le record de passes décisives en carrière en NBA ?", options: ["John Stockton", "Magic Johnson", "Chris Paul", "Steve Nash"], reponse: "John Stockton" },
+      { question: "Quel joueur a remporté le plus de titres MVP de saison régulière ?", options: ["Kareem Abdul-Jabbar", "Michael Jordan", "LeBron James", "Bill Russell"], reponse: "Kareem Abdul-Jabbar" },
+      { question: "Quel joueur est le meilleur marqueur de l'histoire de la NBA (record all-time points) ?", options: ["LeBron James", "Kareem Abdul-Jabbar", "Karl Malone", "Michael Jordan"], reponse: "LeBron James" },
+      { question: "Quel joueur a le plus de bagues NBA comme joueur (11) ?", options: ["Bill Russell", "Michael Jordan", "Kareem Abdul-Jabbar", "Magic Johnson"], reponse: "Bill Russell" },
+      { question: "Quel joueur a été MVP des Finales 2020 avec les Lakers ?", options: ["LeBron James", "Anthony Davis", "Jimmy Butler", "Kawhi Leonard"], reponse: "LeBron James" },
+
+      { question: "En 2011, quelle équipe a remporté le titre NBA face au Miami Heat ?", options: ["Dallas Mavericks", "Boston Celtics", "Los Angeles Lakers", "San Antonio Spurs"], reponse: "Dallas Mavericks" },
+      { question: "Qui était la star des Mavericks MVP des Finales 2011 ?", options: ["Dirk Nowitzki", "Jason Kidd", "Dwyane Wade", "Kevin Durant"], reponse: "Dirk Nowitzki" },
+      { question: "Quel joueur a été drafté en 15e position en 2014 par Milwaukee et est devenu MVP en 2019/2020 ?", options: ["Giannis Antetokounmpo", "Nikola Jokić", "Joel Embiid", "Luka Dončić"], reponse: "Giannis Antetokounmpo" },
+      { question: "De quel pays est originaire Giannis Antetokounmpo ?", options: ["Grèce", "Nigéria", "Cameroun", "France"], reponse: "Grèce" },
+      { question: "De quel pays est originaire Luka Dončić ?", options: ["Slovénie", "Serbie", "Croatie", "Espagne"], reponse: "Slovénie" },
+      { question: "De quel pays est originaire Joel Embiid ?", options: ["Cameroun", "France", "États-Unis", "Sénégal"], reponse: "Cameroun" },
+      { question: "De quel pays est originaire Shai Gilgeous-Alexander ?", options: ["Canada", "États-Unis", "Royaume-Uni", "Australie"], reponse: "Canada" },
+      { question: "Quel joueur a remporté le titre de ROY (Rookie of the Year) en 2004 ?", options: ["LeBron James", "Carmelo Anthony", "Dwyane Wade", "Chris Bosh"], reponse: "LeBron James" },
+      { question: "Quel joueur a été 1er choix de draft en 2019 ?", options: ["Zion Williamson", "Ja Morant", "RJ Barrett", "Anthony Edwards"], reponse: "Zion Williamson" },
+      { question: "Quel joueur a été 1er choix de draft en 2020 ?", options: ["Anthony Edwards", "LaMelo Ball", "James Wiseman", "Cade Cunningham"], reponse: "Anthony Edwards" },
+
+      { question: "Quelle franchise est associée au surnom 'Showtime' dans les années 80 ?", options: ["Los Angeles Lakers", "Boston Celtics", "Chicago Bulls", "Detroit Pistons"], reponse: "Los Angeles Lakers" },
+      { question: "Quelle équipe est surnommée 'The City' et joue au Chase Center ?", options: ["Golden State Warriors", "Sacramento Kings", "Los Angeles Clippers", "Phoenix Suns"], reponse: "Golden State Warriors" },
+      { question: "Quel joueur a été surnommé 'The Answer' ?", options: ["Allen Iverson", "Tracy McGrady", "Vince Carter", "Ray Allen"], reponse: "Allen Iverson" },
+      { question: "Quel joueur est surnommé 'The Greek Freak' ?", options: ["Giannis Antetokounmpo", "Nikola Jokić", "Luka Dončić", "Rudy Gobert"], reponse: "Giannis Antetokounmpo" },
+      { question: "Quel joueur est surnommé 'The Joker' ?", options: ["Nikola Jokić", "Jimmy Butler", "Jayson Tatum", "Devin Booker"], reponse: "Nikola Jokić" },
+      { question: "Quelle équipe a remporté le premier titre de son histoire en 2019 ?", options: ["Toronto Raptors", "Milwaukee Bucks", "Denver Nuggets", "Phoenix Suns"], reponse: "Toronto Raptors" },
+      { question: "Qui a été MVP des Finales 2019 ?", options: ["Kawhi Leonard", "Stephen Curry", "Kyle Lowry", "Kevin Durant"], reponse: "Kawhi Leonard" },
+      { question: "Qui a été MVP des Finales 2015 ?", options: ["Andre Iguodala", "Stephen Curry", "LeBron James", "Klay Thompson"], reponse: "Andre Iguodala" },
+      { question: "Qui a été MVP des Finales 2018 ?", options: ["Kevin Durant", "LeBron James", "Stephen Curry", "Draymond Green"], reponse: "Kevin Durant" },
+      { question: "Quel joueur a marqué le plus de tirs à 3 points en carrière (record all-time) ?", options: ["Stephen Curry", "Ray Allen", "Reggie Miller", "James Harden"], reponse: "Stephen Curry" },
+
+      { question: "Quel joueur a gagné 6 titres NBA sans jamais perdre une finale, avec les Bulls ?", options: ["Michael Jordan", "Scottie Pippen", "Dennis Rodman", "Karl Malone"], reponse: "Michael Jordan" },
+      { question: "Quel joueur détient le record de points en playoffs sur un seul match (63 en 1986) ?", options: ["Michael Jordan", "LeBron James", "Kobe Bryant", "Kevin Durant"], reponse: "Michael Jordan" },
+      { question: "Quel joueur est le meilleur marqueur de l’histoire des playoffs NBA ?", options: ["LeBron James", "Michael Jordan", "Kareem Abdul-Jabbar", "Kobe Bryant"], reponse: "LeBron James" },
+      { question: "Quel joueur a remporté le titre de Defensive Player of the Year 4 fois (record partagé) ?", options: ["Dikembe Mutombo", "Rudy Gobert", "Les deux", "Ben Wallace"], reponse: "Les deux" },
+      { question: "Quel joueur a été le 1er choix de la Draft 2009 ?", options: ["Blake Griffin", "Stephen Curry", "James Harden", "DeMar DeRozan"], reponse: "Blake Griffin" },
+      { question: "Quel joueur a été le 1er choix de la Draft 2014 ?", options: ["Andrew Wiggins", "Joel Embiid", "Jabari Parker", "Aaron Gordon"], reponse: "Andrew Wiggins" },
+      { question: "Quel joueur a été le 1er choix de la Draft 2016 ?", options: ["Ben Simmons", "Brandon Ingram", "Jaylen Brown", "Jayson Tatum"], reponse: "Ben Simmons" },
+      { question: "Quel joueur a été le 1er choix de la Draft 2018 ?", options: ["Deandre Ayton", "Luka Dončić", "Trae Young", "Jaren Jackson Jr."], reponse: "Deandre Ayton" },
+      { question: "Quel joueur a été le 1er choix de la Draft 2022 ?", options: ["Paolo Banchero", "Chet Holmgren", "Jabari Smith Jr.", "Victor Wembanyama"], reponse: "Paolo Banchero" },
+      { question: "Quelle équipe a déménagé de Seattle à Oklahoma City en 2008 ?", options: ["SuperSonics → Thunder", "Grizzlies → Memphis", "Hornets → New Orleans", "Nets → Brooklyn"], reponse: "SuperSonics → Thunder" },
+
+      { question: "Quel joueur a remporté le titre de Most Improved Player en 2023 ?", options: ["Lauri Markkanen", "Ja Morant", "Shai Gilgeous-Alexander", "Jalen Brunson"], reponse: "Lauri Markkanen" },
+      { question: "Qui a été coach des Warriors lors des titres 2015, 2017, 2018 ?", options: ["Steve Kerr", "Mark Jackson", "Erik Spoelstra", "Ty Lue"], reponse: "Steve Kerr" },
+      { question: "Qui a entraîné les Spurs pendant la dynastie (5 titres) ?", options: ["Gregg Popovich", "Pat Riley", "Phil Jackson", "Larry Brown"], reponse: "Gregg Popovich" },
+      { question: "Quel joueur a rejoint Miami en 2010 via la free agency (avec LeBron et Bosh) ?", options: ["Dwyane Wade", "Kobe Bryant", "Kevin Garnett", "Dwight Howard"], reponse: "Dwyane Wade" },
+      { question: "Quel joueur a remporté le titre NBA 2021 comme leader des Bucks ?", options: ["Giannis Antetokounmpo", "Khris Middleton", "Jrue Holiday", "Brook Lopez"], reponse: "Giannis Antetokounmpo" },
+      { question: "Quel joueur a été MVP des Finales 2022 ?", options: ["Stephen Curry", "Jayson Tatum", "Jaylen Brown", "Draymond Green"], reponse: "Stephen Curry" },
+      { question: "Quelle équipe a remporté le titre NBA 2023 ?", options: ["Denver Nuggets", "Miami Heat", "Golden State Warriors", "Boston Celtics"], reponse: "Denver Nuggets" },
+      { question: "Qui a été MVP des Finales 2023 ?", options: ["Nikola Jokić", "Jamal Murray", "Jimmy Butler", "Bam Adebayo"], reponse: "Nikola Jokić" },
+      { question: "Quelle franchise a remporté le plus de titres NBA (record historique) ?", options: ["Boston Celtics", "Los Angeles Lakers", "Chicago Bulls", "Golden State Warriors"], reponse: "Boston Celtics" },
+      { question: "Quel joueur a joué en NBA et est devenu célèbre avec le tir 'Skyhook' ?", options: ["Kareem Abdul-Jabbar", "Shaquille O'Neal", "Hakeem Olajuwon", "Patrick Ewing"], reponse: "Kareem Abdul-Jabbar" },
+
+      // --- Ajouts (50+ nouvelles questions) ---
+      { question: "Quelle était la première équipe NBA de James Harden ?", options: ["Oklahoma City Thunder", "Houston Rockets", "Brooklyn Nets", "Phoenix Suns"], reponse: "Oklahoma City Thunder" },
+      { question: "Qui a été drafté avant Carmelo Anthony et Dwyane Wade en 2003 ?", options: ["Darko Miličić", "Chris Bosh", "Kirk Hinrich", "LeBron James"], reponse: "Darko Miličić" },
+      { question: "Quelle équipe a drafté Anthony Bennett en 1er choix en 2013 ?", options: ["Cleveland Cavaliers", "Charlotte Bobcats", "Washington Wizards", "Minnesota Timberwolves"], reponse: "Cleveland Cavaliers" },
+      { question: "De quel pays vient Victor Wembanyama ?", options: ["France", "Belgique", "Sénégal", "Canada"], reponse: "France" },
+      { question: "Quel joueur a participé au plus grand nombre de All-Star Games (record) ?", options: ["LeBron James", "Kareem Abdul-Jabbar", "Kobe Bryant", "Tim Duncan"], reponse: "LeBron James" },
+      { question: "Quel coach a gagné 11 bagues NBA en tant qu'entraîneur principal ?", options: ["Phil Jackson", "Red Auerbach", "Pat Riley", "Gregg Popovich"], reponse: "Phil Jackson" },
+
+      { question: "Quelle équipe jouait Kobe Bryant pendant toute sa carrière NBA ?", options: ["Los Angeles Lakers", "Charlotte Hornets", "Chicago Bulls", "Boston Celtics"], reponse: "Los Angeles Lakers" },
+      { question: "Quel joueur a été 1er choix de la Draft 2007 ?", options: ["Greg Oden", "Kevin Durant", "Al Horford", "Mike Conley"], reponse: "Greg Oden" },
+      { question: "Quelle franchise a drafté Stephen Curry en 2009 ?", options: ["Golden State Warriors", "Charlotte Bobcats", "New York Knicks", "Minnesota Timberwolves"], reponse: "Golden State Warriors" },
+      { question: "Quel joueur a été 60e choix de Draft en 2014 et est devenu MVP des Finales 2021 ?", options: ["Giannis Antetokounmpo", "Nikola Jokić", "Khris Middleton", "Jimmy Butler"], reponse: "Giannis Antetokounmpo" },
+      { question: "Quelle équipe a drafté Kobe Bryant en 1996 (avant l'échange) ?", options: ["Charlotte Hornets", "Los Angeles Lakers", "Philadelphia 76ers", "New Jersey Nets"], reponse: "Charlotte Hornets" },
+      { question: "Qui a été MVP des Finales 2014 ?", options: ["Kawhi Leonard", "LeBron James", "Tony Parker", "Tim Duncan"], reponse: "Kawhi Leonard" },
+      { question: "Quel joueur a remporté le titre de MVP 2016 à l'unanimité ?", options: ["Stephen Curry", "LeBron James", "Kevin Durant", "James Harden"], reponse: "Stephen Curry" },
+      { question: "Quelle équipe a remporté le titre NBA 2004 avec une défense légendaire ?", options: ["Detroit Pistons", "Los Angeles Lakers", "San Antonio Spurs", "Miami Heat"], reponse: "Detroit Pistons" },
+      { question: "Quel joueur a marqué 8 points en 9 secondes (un des comebacks les plus fous) ?", options: ["Tracy McGrady", "Reggie Miller", "Klay Thompson", "Damian Lillard"], reponse: "Tracy McGrady" },
+      { question: "Quel joueur est surnommé 'The Truth' ?", options: ["Paul Pierce", "Kevin Garnett", "Ray Allen", "Dwyane Wade"], reponse: "Paul Pierce" },
+      { question: "Quelle équipe a choisi Hakeem Olajuwon en 1er choix en 1984 ?", options: ["Houston Rockets", "Chicago Bulls", "Portland Trail Blazers", "Los Angeles Lakers"], reponse: "Houston Rockets" },
+      { question: "Quel joueur a été choisi en 1er choix en 1984 juste après Hakeem ?", options: ["Sam Bowie", "Michael Jordan", "Charles Barkley", "John Stockton"], reponse: "Sam Bowie" },
+
+      { question: "Quel joueur détient le record de rebonds en carrière NBA ?", options: ["Wilt Chamberlain", "Bill Russell", "Kareem Abdul-Jabbar", "Moses Malone"], reponse: "Wilt Chamberlain" },
+      { question: "Quel joueur a remporté 3 titres MVP de suite (1984-1986) ?", options: ["Larry Bird", "Magic Johnson", "Michael Jordan", "Kareem Abdul-Jabbar"], reponse: "Larry Bird" },
+      { question: "Quel joueur a gagné 2 fois le trophée de DPOY et 1 titre NBA avec les Bucks en 1971 ?", options: ["Kareem Abdul-Jabbar", "Oscar Robertson", "Julius Erving", "Bob Lanier"], reponse: "Kareem Abdul-Jabbar" },
+      { question: "Quelle équipe a remporté le titre NBA 2008 ?", options: ["Boston Celtics", "Los Angeles Lakers", "San Antonio Spurs", "Detroit Pistons"], reponse: "Boston Celtics" },
+      { question: "Qui a été MVP des Finales 2008 ?", options: ["Paul Pierce", "Kevin Garnett", "Ray Allen", "Kobe Bryant"], reponse: "Paul Pierce" },
+      { question: "Quel joueur a remporté le titre NBA 2011 et le trophée de MVP des Finales ?", options: ["Dirk Nowitzki", "Jason Terry", "LeBron James", "Dwyane Wade"], reponse: "Dirk Nowitzki" },
+      { question: "Quelle franchise a remporté le titre NBA 1977 (premier de son histoire) ?", options: ["Portland Trail Blazers", "New York Knicks", "Washington Bullets", "Seattle SuperSonics"], reponse: "Portland Trail Blazers" },
+      { question: "Quel joueur a été MVP des Finales 1977 ?", options: ["Bill Walton", "Clyde Drexler", "Kareem Abdul-Jabbar", "Dr. J"], reponse: "Bill Walton" },
+      { question: "Quel joueur a été drafté en 2013 juste derrière Anthony Bennett (2e choix) ?", options: ["Victor Oladipo", "Giannis Antetokounmpo", "Rudy Gobert", "CJ McCollum"], reponse: "Victor Oladipo" },
+      { question: "Quel joueur a été 1er choix de la Draft 2001 ?", options: ["Kwame Brown", "Pau Gasol", "Tony Parker", "Tyson Chandler"], reponse: "Kwame Brown" },
+
+      { question: "Quelle équipe a remporté le titre NBA 1994 ?", options: ["Houston Rockets", "New York Knicks", "Chicago Bulls", "Utah Jazz"], reponse: "Houston Rockets" },
+      { question: "Qui a été MVP des Finales 1994 ?", options: ["Hakeem Olajuwon", "Patrick Ewing", "John Starks", "Clyde Drexler"], reponse: "Hakeem Olajuwon" },
+      { question: "Quelle équipe a remporté le titre NBA 1995 ?", options: ["Houston Rockets", "Orlando Magic", "Indiana Pacers", "Seattle SuperSonics"], reponse: "Houston Rockets" },
+      { question: "Quel joueur a été MVP des Finales 1995 ?", options: ["Hakeem Olajuwon", "Shaquille O'Neal", "Penny Hardaway", "Clyde Drexler"], reponse: "Hakeem Olajuwon" },
+      { question: "Quel joueur a été surnommé 'The Big Fundamental' ?", options: ["Tim Duncan", "Kevin Garnett", "Dirk Nowitzki", "Shaquille O'Neal"], reponse: "Tim Duncan" },
+      { question: "Qui a été MVP des Finales 2007 ?", options: ["Tony Parker", "Tim Duncan", "Manu Ginóbili", "LeBron James"], reponse: "Tony Parker" },
+      { question: "Quelle équipe a remporté le titre NBA 2007 ?", options: ["San Antonio Spurs", "Cleveland Cavaliers", "Detroit Pistons", "Phoenix Suns"], reponse: "San Antonio Spurs" },
+      { question: "Quel joueur détient le record du plus grand nombre de titres de meilleur marqueur (scoring titles) ?", options: ["Michael Jordan", "Kevin Durant", "Kobe Bryant", "Allen Iverson"], reponse: "Michael Jordan" },
+      { question: "Quel joueur a remporté 10 titres de meilleur marqueur en carrière ?", options: ["Michael Jordan", "Wilt Chamberlain", "LeBron James", "Kareem Abdul-Jabbar"], reponse: "Michael Jordan" },
+      { question: "Quel joueur détient le record de lancers francs réussis en carrière ?", options: ["Karl Malone", "LeBron James", "Kobe Bryant", "James Harden"], reponse: "Karl Malone" },
+
+      { question: "Quelle équipe a remporté le titre NBA 1999 (saison raccourcie) ?", options: ["San Antonio Spurs", "New York Knicks", "Indiana Pacers", "Los Angeles Lakers"], reponse: "San Antonio Spurs" },
+      { question: "Qui a été MVP des Finales 1999 ?", options: ["Tim Duncan", "David Robinson", "Latrell Sprewell", "Patrick Ewing"], reponse: "Tim Duncan" },
+      { question: "Quelle équipe a remporté le titre NBA 2010 ?", options: ["Los Angeles Lakers", "Boston Celtics", "Orlando Magic", "Dallas Mavericks"], reponse: "Los Angeles Lakers" },
+      { question: "Qui a été MVP des Finales 2010 ?", options: ["Kobe Bryant", "Pau Gasol", "Paul Pierce", "Kevin Garnett"], reponse: "Kobe Bryant" },
+      { question: "Quelle équipe a remporté le titre NBA 2006 ?", options: ["Miami Heat", "Dallas Mavericks", "San Antonio Spurs", "Detroit Pistons"], reponse: "Miami Heat" },
+      { question: "Qui a été MVP des Finales 2006 ?", options: ["Dwyane Wade", "Shaquille O'Neal", "Dirk Nowitzki", "Jason Terry"], reponse: "Dwyane Wade" },
+      { question: "Quelle équipe a remporté le titre NBA 2013 ?", options: ["Miami Heat", "San Antonio Spurs", "Oklahoma City Thunder", "Los Angeles Lakers"], reponse: "Miami Heat" },
+      { question: "Qui a été MVP des Finales 2013 ?", options: ["LeBron James", "Dwyane Wade", "Tony Parker", "Tim Duncan"], reponse: "LeBron James" },
+      { question: "Quel joueur est célèbre pour 'Linsanity' (2012) ?", options: ["Jeremy Lin", "Kemba Walker", "Goran Dragić", "Isaiah Thomas"], reponse: "Jeremy Lin" },
+      { question: "Quel joueur a remporté le trophée de Sixth Man of the Year 2019 (record de points en sortie de banc) ?", options: ["Lou Williams", "Montrezl Harrell", "Jamal Crawford", "Eric Gordon"], reponse: "Lou Williams" },
+
+      { question: "Quel joueur a été 1er choix de la Draft 1996 ?", options: ["Allen Iverson", "Kobe Bryant", "Steve Nash", "Ray Allen"], reponse: "Allen Iverson" },
+      { question: "Quelle équipe a drafté Darko Miličić (2e choix) en 2003 ?", options: ["Detroit Pistons", "Denver Nuggets", "Miami Heat", "Toronto Raptors"], reponse: "Detroit Pistons" },
+      { question: "Quel joueur a été 1er choix de la Draft 2013 (souvent cité comme un 'bust') ?", options: ["Anthony Bennett", "Victor Oladipo", "Giannis Antetokounmpo", "CJ McCollum"], reponse: "Anthony Bennett" },
+      { question: "Quel joueur a remporté le plus de titres de DPOY au total (record partagé à 4) ?", options: ["Dikembe Mutombo et Ben Wallace", "Rudy Gobert et Michael Jordan", "Dwight Howard et Kawhi Leonard", "Hakeem Olajuwon et Gary Payton"], reponse: "Dikembe Mutombo et Ben Wallace" },
+      { question: "Quel joueur a été le plus jeune MVP de l'histoire ?", options: ["Derrick Rose", "LeBron James", "Magic Johnson", "Shaquille O'Neal"], reponse: "Derrick Rose" },
+      { question: "Qui a marqué 100 points en un seul match NBA ?", options: ["Wilt Chamberlain", "Kobe Bryant", "Michael Jordan", "James Harden"], reponse: "Wilt Chamberlain" },
+      { question: "Quel joueur a été MVP 2023 et MVP des Finales 2023 ?", options: ["Nikola Jokić", "Giannis Antetokounmpo", "Joel Embiid", "Stephen Curry"], reponse: "Nikola Jokić" },
+      { question: "Quelle est la nationalité de Nikola Jokić ?", options: ["Serbe", "Croate", "Slovène", "Grec"], reponse: "Serbe" },
+      { question: "Quel joueur a rejoint les Warriors en 2016 après un titre d'MVP ?", options: ["Kevin Durant", "Kawhi Leonard", "James Harden", "Russell Westbrook"], reponse: "Kevin Durant" },
+      { question: "Quel joueur a été drafté en 1998 en 9e position et est devenu une légende des Mavericks ?", options: ["Dirk Nowitzki", "Steve Nash", "Paul Pierce", "Vince Carter"], reponse: "Dirk Nowitzki" },
+
+      // 32 questions NBA supplémentaires
+      { question: "Combien de titres NBA Michael Jordan a-t-il remportés avec les Bulls ?", options: ["6", "5", "7", "4"], reponse: "6" },
+      { question: "Quelle équipe a perdu les Finales 2016 après avoir mené 3-1 ?", options: ["Golden State Warriors", "Cleveland Cavaliers", "San Antonio Spurs", "Miami Heat"], reponse: "Golden State Warriors" },
+      { question: "Quel joueur est célèbre pour son tir au buzzer 'The Shot' contre Cleveland en 1989 ?", options: ["Michael Jordan", "Larry Bird", "Magic Johnson", "Isiah Thomas"], reponse: "Michael Jordan" },
+      { question: "Quel joueur a remporté le titre de MVP des Finales 2011 avec Dallas ?", options: ["Dirk Nowitzki", "Jason Kidd", "Jason Terry", "Shawn Marion"], reponse: "Dirk Nowitzki" },
+      { question: "Quelle franchise a drafté Manu Ginóbili ?", options: ["San Antonio Spurs", "Atlanta Hawks", "Houston Rockets", "Sacramento Kings"], reponse: "San Antonio Spurs" },
+      { question: "Quel joueur a réalisé un triple-double de 30 points en sortant du banc lors des Finales 2015 ?", options: ["Andre Iguodala", "Draymond Green", "Klay Thompson", "Leandro Barbosa"], reponse: "Andre Iguodala" },
+      { question: "Quel joueur a marqué le célèbre tir de la gagne au Game 7 des Finales 2016 ?", options: ["Kyrie Irving", "LeBron James", "Kevin Love", "J.R. Smith"], reponse: "Kyrie Irving" },
+      { question: "Quelle équipe a été surnommée 'Lob City' au début des années 2010 ?", options: ["Los Angeles Clippers", "Houston Rockets", "Phoenix Suns", "Denver Nuggets"], reponse: "Los Angeles Clippers" },
+      { question: "Quel joueur est le meilleur passeur de l'histoire des Suns ?", options: ["Steve Nash", "Kevin Johnson", "Jason Kidd", "Chris Paul"], reponse: "Steve Nash" },
+      { question: "Quel joueur a remporté le Slam Dunk Contest en sautant par-dessus une voiture ?", options: ["Blake Griffin", "Zach LaVine", "Dwight Howard", "Vince Carter"], reponse: "Blake Griffin" },
+      { question: "Quelle franchise a drafté Kawhi Leonard avant de l'échanger aux Spurs ?", options: ["Indiana Pacers", "San Antonio Spurs", "Sacramento Kings", "Toronto Raptors"], reponse: "Indiana Pacers" },
+      { question: "Quel joueur a été MVP de la saison 2018 avec les Rockets ?", options: ["James Harden", "Chris Paul", "Russell Westbrook", "Giannis Antetokounmpo"], reponse: "James Harden" },
+      { question: "Quel joueur est surnommé 'Logo Lillard' pour ses tirs très lointains ?", options: ["Damian Lillard", "Stephen Curry", "Trae Young", "Kyrie Irving"], reponse: "Damian Lillard" },
+      { question: "Quelle franchise a longtemps été associée au duo Stockton-Malone ?", options: ["Utah Jazz", "Houston Rockets", "San Antonio Spurs", "Portland Trail Blazers"], reponse: "Utah Jazz" },
+      { question: "Quel joueur a remporté le titre de ROY en 2018 ?", options: ["Ben Simmons", "Donovan Mitchell", "Jayson Tatum", "Lauri Markkanen"], reponse: "Ben Simmons" },
+      { question: "Quel joueur a été MVP de la saison 2021 avec Denver ?", options: ["Nikola Jokić", "Joel Embiid", "Giannis Antetokounmpo", "Stephen Curry"], reponse: "Nikola Jokić" },
+      { question: "Quelle franchise a été la première à remporter 3 titres de suite dans les années 2000 ?", options: ["Los Angeles Lakers", "San Antonio Spurs", "Detroit Pistons", "Miami Heat"], reponse: "Los Angeles Lakers" },
+      { question: "Qui a été l'entraîneur des Bulls pour leurs deux three-peats ?", options: ["Phil Jackson", "Doug Collins", "Tom Thibodeau", "Scott Skiles"], reponse: "Phil Jackson" },
+      { question: "Quel joueur a réalisé un match à 37 points dans un quart-temps pour Golden State ?", options: ["Klay Thompson", "Stephen Curry", "Kevin Durant", "Draymond Green"], reponse: "Klay Thompson" },
+      { question: "Quelle équipe a drafté Luka Dončić avant de l'échanger aux Mavericks ?", options: ["Atlanta Hawks", "Sacramento Kings", "Phoenix Suns", "Memphis Grizzlies"], reponse: "Atlanta Hawks" },
+      { question: "Quel joueur camerounais a été MVP de la saison 2023 ?", options: ["Joel Embiid", "Pascal Siakam", "Serge Ibaka", "Luc Mbah a Moute"], reponse: "Joel Embiid" },
+      { question: "Quel joueur français a été 6e homme de l'année en 2008 ?", options: ["Manu Ginóbili", "Tony Parker", "Boris Diaw", "Nicolas Batum"], reponse: "Manu Ginóbili" },
+      { question: "Quelle franchise a remporté le titre en 2015, 2017, 2018 et 2022 ?", options: ["Golden State Warriors", "Cleveland Cavaliers", "Miami Heat", "San Antonio Spurs"], reponse: "Golden State Warriors" },
+      { question: "Quel joueur a été le visage des Knicks dans les années 90 ?", options: ["Patrick Ewing", "John Starks", "Charles Oakley", "Allan Houston"], reponse: "Patrick Ewing" },
+      { question: "Quelle équipe a été balayée 4-0 par les Spurs en Finales 2007 ?", options: ["Cleveland Cavaliers", "Detroit Pistons", "Dallas Mavericks", "Denver Nuggets"], reponse: "Cleveland Cavaliers" },
+      { question: "Quel joueur est connu pour sa célébration 'Big Balls Dance' et ses tirs clutchs ?", options: ["Sam Cassell", "Robert Horry", "Reggie Miller", "Ray Allen"], reponse: "Sam Cassell" },
+      { question: "Quel joueur a bloqué le tir d'Andre Iguodala dans le 'chase-down block' iconique de 2016 ?", options: ["LeBron James", "Kyrie Irving", "Kevin Love", "Draymond Green"], reponse: "LeBron James" },
+      { question: "Quelle franchise détient le record de la plus longue série de victoires consécutives en saison régulière (33) ?", options: ["Los Angeles Lakers", "Golden State Warriors", "Miami Heat", "Houston Rockets"], reponse: "Los Angeles Lakers" },
+      { question: "Quel joueur argentin a été un pilier des Spurs aux côtés de Tim Duncan et Tony Parker ?", options: ["Manu Ginóbili", "Luis Scola", "Fabricio Oberto", "Andrés Nocioni"], reponse: "Manu Ginóbili" },
+      { question: "Quelle équipe a remporté le tout premier titre NBA en 1947 (BAA) ?", options: ["Philadelphia Warriors", "Boston Celtics", "New York Knicks", "Rochester Royals"], reponse: "Philadelphia Warriors" },
+      { question: "Quel joueur français a été le premier à être MVP des Finales NBA ?", options: ["Tony Parker", "Boris Diaw", "Rudy Gobert", "Nicolas Batum"], reponse: "Tony Parker" },
+      { question: "Quelle équipe a remporté le titre NBA dans la ‘bulle’ d’Orlando en 2020 ?", options: ["Los Angeles Lakers", "Miami Heat", "Denver Nuggets", "Boston Celtics"], reponse: "Los Angeles Lakers" },
     ];
 
     // État du jeu
@@ -1728,6 +2137,8 @@
     const QUESTION_TIME_LIMIT = 25; // secondes pour répondre
     let timeRemaining = QUESTION_TIME_LIMIT;
     let timerInterval = null;
+    let activeMode = "foot"; // "foot" | "basket"
+    let activeQuestions = questionsFoot;
     let shuffledQuestions = [];
     let questionLocked = false;
 
@@ -1736,9 +2147,12 @@
     const questionScreen = document.getElementById("question-screen");
     const gameoverScreen = document.getElementById("gameover-screen");
     const gameCard = document.getElementById("game-card");
+    const sportSelectScreen = document.getElementById("sport-select-screen");
 
     const startBtn = document.getElementById("start-btn");
     const retryBtn = document.getElementById("retry-btn");
+    const selectFootBtn = document.getElementById("select-foot-btn");
+    const selectBasketBtn = document.getElementById("select-basket-btn");
 
     const scoreEl = document.getElementById("score");
     const livesEl = document.getElementById("lives");
@@ -1749,6 +2163,8 @@
     const questionCounterEl = document.getElementById("question-counter");
     const timerEl = document.getElementById("timer");
     const streakTextEl = document.getElementById("streak-text");
+
+    const progressBarFillEl = document.getElementById("progress-bar-fill");
 
     const finalScoreEl = document.getElementById("final-score");
     const finalStatsEl = document.getElementById("final-stats");
@@ -1766,13 +2182,16 @@
         const storedLives = localStorage.getItem(STORAGE_KEY_LIVES);
         const storedScore = localStorage.getItem(STORAGE_KEY_SCORE);
         const storedPremium = localStorage.getItem(STORAGE_KEY_PREMIUM);
+        const storedMode = localStorage.getItem(STORAGE_KEY_MODE);
         lives = storedLives !== null ? Math.max(0, parseInt(storedLives, 10) || 0) : maxLives;
         score = storedScore !== null ? Math.max(0, parseInt(storedScore, 10) || 0) : 0;
         isPremium = storedPremium === "true";
+        activeMode = storedMode === "basket" ? "basket" : "foot";
       } catch (e) {
         lives = maxLives;
         score = 0;
         isPremium = false;
+        activeMode = "foot";
       }
     }
 
@@ -1800,9 +2219,45 @@
       }
     }
 
+    function saveModeToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY_MODE, activeMode);
+      } catch (e) {
+        // stockage indisponible, on ignore
+      }
+    }
+
+    function applyModeUI(mode) {
+      document.body.classList.remove("mode-foot", "mode-basket");
+      document.body.classList.add(mode === "basket" ? "mode-basket" : "mode-foot");
+
+      // Ajuster le bouton start (emoji + texte) sans casser le reste
+      const iconEl = startBtn ? startBtn.querySelector(".icon") : null;
+      const labelEl = startBtn ? startBtn.querySelector("span:not(.icon)") : null;
+      if (iconEl) iconEl.textContent = mode === "basket" ? "🏀" : "⚽";
+      if (labelEl) labelEl.textContent = mode === "basket" ? "Lancer le quiz NBA" : "Lancer le quiz";
+    }
+
+    function setActiveMode(mode) {
+      activeMode = mode === "basket" ? "basket" : "foot";
+      activeQuestions = activeMode === "basket" ? questionsBasket : questionsFoot;
+      saveModeToStorage();
+      applyModeUI(activeMode);
+
+      const tagLabel = document.querySelector("#question-screen .question-tag span:last-child");
+      if (tagLabel) {
+        tagLabel.textContent =
+          activeMode === "basket"
+            ? "Round spécial NBA Legends"
+            : "Round spécial football européen";
+      }
+    }
+
     // Initialisation UI
     function initUI() {
       loadStateFromStorage();
+      activeQuestions = activeMode === "basket" ? questionsBasket : questionsFoot;
+      applyModeUI(activeMode);
       if (isPremium) {
         lives = maxLives;
       }
@@ -1822,23 +2277,28 @@
       }
 
       document.getElementById("top-info").classList.add("hidden"); // caché avant le match
+      showScreen("sport-select-screen");
     }
 
     function updateLivesDisplay() {
       livesEl.innerHTML = "";
+      livesEl.classList.remove("low");
       for (let i = 0; i < maxLives; i++) {
         const span = document.createElement("span");
         span.classList.add("heart");
-        if (!isPremium && i >= lives) {
+        if (i >= lives) {
           span.classList.add("lost");
         }
         span.textContent = "❤️";
         livesEl.appendChild(span);
       }
+      if (lives === 1) {
+        livesEl.classList.add("low");
+      }
     }
 
     function updateProgressDisplay() {
-      const total = shuffledQuestions.length || questions.length;
+      const total = shuffledQuestions.length || activeQuestions.length;
       progressTextEl.textContent = `${Math.min(
         currentQuestionIndex + 1,
         total
@@ -1847,16 +2307,22 @@
         currentQuestionIndex + 1,
         total
       )} / ${total}`;
+
+      if (progressBarFillEl) {
+        const current = Math.min(currentQuestionIndex + 1, total);
+        const pct = total > 0 ? Math.round((current / total) * 100) : 0;
+        progressBarFillEl.style.width = `${pct}%`;
+      }
     }
 
-    // --- Mélange des questions ---
-    function shuffleQuestions() {
-      const array = questions.slice();
-      for (let i = array.length - 1; i > 0; i--) {
+    // --- Shuffle (Fisher-Yates) ---
+    function shuffleArray(array) {
+      const arr = array.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [arr[i], arr[j]] = [arr[j], arr[i]];
       }
-      return array;
+      return arr;
     }
 
     // --- Timer par question ---
@@ -1884,32 +2350,8 @@
       }, 1000);
     }
 
-    function resetTimer() {
-      clearInterval(timerInterval);
-      timeRemaining = QUESTION_TIME_LIMIT;
-      if (timerEl) {
-        timerEl.textContent = `⏱ ${timeRemaining} s`;
-      }
-    }
-
-    function startTimer() {
-      resetTimer();
-      timerInterval = setInterval(() => {
-        timeRemaining -= 1;
-        if (timerEl) {
-          timerEl.textContent = `⏱ ${Math.max(timeRemaining, 0)} s`;
-        }
-        if (timeRemaining <= 0) {
-          clearInterval(timerInterval);
-          if (!questionLocked) {
-            handleTimeout();
-          }
-        }
-      }, 1000);
-    }
-
     function showScreen(screenId) {
-      [startScreen, questionScreen, gameoverScreen].forEach((el) =>
+      [sportSelectScreen, startScreen, questionScreen, gameoverScreen].forEach((el) =>
         el.classList.remove("active")
       );
       document.getElementById(screenId).classList.add("active");
@@ -1920,7 +2362,7 @@
       lives = maxLives;
       correctStreak = 0;
       currentQuestionIndex = 0;
-      shuffledQuestions = shuffleQuestions();
+      shuffledQuestions = shuffleArray(activeQuestions);
       questionLocked = false;
       resetTimer();
 
@@ -1935,7 +2377,7 @@
     }
 
     function loadCurrentQuestion() {
-      const source = shuffledQuestions.length ? shuffledQuestions : questions;
+      const source = shuffledQuestions.length ? shuffledQuestions : activeQuestions;
       const q = source[currentQuestionIndex];
       if (!q) {
         // Si on a épuisé toutes les questions, on recommence depuis le début du set mélangé
@@ -1948,11 +2390,18 @@
       optionsGridEl.innerHTML = "";
       questionLocked = false;
 
-      current.options.forEach((opt, idx) => {
+      // On mélange les options pour éviter que la bonne réponse soit toujours en A
+      const shuffledOpts = shuffleArray(current.options);
+
+      shuffledOpts.forEach((opt, idx) => {
         const btn = document.createElement("button");
         btn.type = "button";
         btn.className = "option-btn";
         btn.dataset.index = idx;
+        btn.dataset.value = opt;
+        if (opt === current.reponse) {
+          btn.dataset.correct = "true";
+        }
 
         const indexSpan = document.createElement("span");
         indexSpan.className = "index";
@@ -1965,7 +2414,7 @@
         btn.appendChild(indexSpan);
         btn.appendChild(labelSpan);
 
-        btn.addEventListener("click", () => handleAnswer(idx, btn));
+        btn.addEventListener("click", () => handleAnswer(btn));
         optionsGridEl.appendChild(btn);
       });
 
@@ -1973,14 +2422,12 @@
       startTimer();
     }
 
-    function handleAnswer(selectedIndex, selectedButton) {
+    function handleAnswer(selectedButton) {
       if (questionLocked) return;
       questionLocked = true;
       clearInterval(timerInterval);
 
-      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
-      const correctIndex = current.options.indexOf(current.reponse);
-      const isCorrect = selectedIndex === correctIndex;
+      const isCorrect = selectedButton.dataset.correct === "true";
 
       // Désactiver tous les boutons pendant l’animation
       const buttons = optionsGridEl.querySelectorAll(".option-btn");
@@ -2012,7 +2459,7 @@
 
       setTimeout(() => {
         currentQuestionIndex =
-          (currentQuestionIndex + 1) % questions.length;
+          (currentQuestionIndex + 1) % activeQuestions.length;
         buttons.forEach((btn) => {
           btn.classList.remove("correct", "wrong", "disabled");
         });
@@ -2026,12 +2473,10 @@
       streakTextEl.textContent =
         "Aïe… tout le virage vient de siffler ton nom.";
 
-      if (!isPremium) {
+      // Toujours perdre une vie en cas d'échec (jusqu'au Game Over)
       lives -= 1;
       if (lives < 0) lives = 0;
       updateLivesDisplay();
-      saveLivesToStorage();
-      }
       saveLivesToStorage();
 
       // Shake animation sur la carte principale
@@ -2044,10 +2489,8 @@
       }, 380);
 
       // Montrer aussi la bonne réponse
-      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
-      const correctIndex = current.options.indexOf(current.reponse);
       const correctButton = Array.from(buttons).find(
-        (btn) => Number(btn.dataset.index) === correctIndex
+        (btn) => btn.dataset.correct === "true"
       );
       if (correctButton && correctButton !== selectedButton) {
         correctButton.classList.add("correct");
@@ -2058,7 +2501,7 @@
           endGame();
         } else {
           currentQuestionIndex =
-            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : questions).length;
+            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : activeQuestions).length;
           buttons.forEach((btn) => {
             btn.classList.remove("correct", "wrong", "disabled");
           });
@@ -2075,12 +2518,11 @@
       correctStreak = 0;
       streakTextEl.textContent = "Temps écoulé… le stade soupire.";
 
-      if (!isPremium) {
-        lives -= 1;
-        if (lives < 0) lives = 0;
-        updateLivesDisplay();
-        saveLivesToStorage();
-      }
+      // Toujours perdre une vie si le temps est écoulé
+      lives -= 1;
+      if (lives < 0) lives = 0;
+      updateLivesDisplay();
+      saveLivesToStorage();
 
       gameCard.classList.add("shake");
       showToast("Temps écoulé ! Tu perds une vie.");
@@ -2089,10 +2531,8 @@
         gameCard.classList.remove("shake");
       }, 380);
 
-      const current = (shuffledQuestions.length ? shuffledQuestions : questions)[currentQuestionIndex];
-      const correctIndex = current.options.indexOf(current.reponse);
       const correctButton = Array.from(buttons).find(
-        (btn) => Number(btn.dataset.index) === correctIndex
+        (btn) => btn.dataset.correct === "true"
       );
       if (correctButton) {
         correctButton.classList.add("correct");
@@ -2103,7 +2543,7 @@
           endGame();
         } else {
           currentQuestionIndex =
-            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : questions).length;
+            (currentQuestionIndex + 1) % (shuffledQuestions.length ? shuffledQuestions : activeQuestions).length;
           buttons.forEach((btn) => {
             btn.classList.remove("correct", "wrong", "disabled");
           });
@@ -2116,7 +2556,7 @@
       showScreen("gameover-screen");
       finalScoreEl.textContent = `${score}`;
       const answered = currentQuestionIndex + 1;
-      const total = (shuffledQuestions.length ? shuffledQuestions : questions).length;
+      const total = (shuffledQuestions.length ? shuffledQuestions : activeQuestions).length;
       const accuracy =
         score === 0 ? 0 : Math.round((score / (total * 10)) * 100);
 
@@ -2266,9 +2706,36 @@
 
     // Event listeners principaux
     startBtn.addEventListener("click", startGame);
-    retryBtn.addEventListener("click", () => {
-      startGame();
-    });
+    if (retryBtn) {
+      retryBtn.addEventListener("click", () => {
+        startGame();
+      });
+    }
+
+    function goToStartWithTransition() {
+      gameCard.classList.remove("transition-pop");
+      void gameCard.offsetWidth; // relance l'animation
+      gameCard.classList.add("transition-pop");
+      showScreen("start-screen");
+    }
+
+    if (selectFootBtn) {
+      selectFootBtn.addEventListener("click", () => {
+        setActiveMode("foot");
+        shuffledQuestions = shuffleArray(activeQuestions);
+        currentQuestionIndex = 0;
+        goToStartWithTransition();
+      });
+    }
+
+    if (selectBasketBtn) {
+      selectBasketBtn.addEventListener("click", () => {
+        setActiveMode("basket");
+        shuffledQuestions = shuffleArray(activeQuestions);
+        currentQuestionIndex = 0;
+        goToStartWithTransition();
+      });
+    }
 
     // Lancer l’UI de base
     initUI();

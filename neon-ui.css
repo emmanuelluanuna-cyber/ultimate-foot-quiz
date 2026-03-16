@@ -1,0 +1,319 @@
+/* Neon dark-mode sports quiz UI (mobile-first) */
+:root {
+  --bg-0: #000000;
+  --bg-1: #05210f; /* deep forest green */
+  --card: #111a3a; /* deep purple/blue */
+  --card-2: #0c1330;
+  --muted: #98a2b3;
+  --muted-2: #6b7280;
+  --cool-grey: #9aa4b2;
+  --cool-grey-2: rgba(154, 164, 178, 0.18);
+  --violet: #7c3aed;
+  --orange: #ff7a00;
+  --orange-2: #ff9a3d;
+  --green: #22c55e;
+  --green-2: #00ff85;
+  --danger: #ff4d2e;
+  --danger-2: #ff7a00;
+  --shadow: 0 18px 45px rgba(0, 0, 0, 0.65);
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-pill: 999px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
+  color: #e5e7eb;
+  background: radial-gradient(1200px 700px at 50% -10%, rgba(124, 58, 237, 0.18), transparent 55%),
+    linear-gradient(180deg, var(--bg-0), var(--bg-1));
+}
+
+.phone {
+  max-width: 420px;
+  margin: 0 auto;
+  min-height: 100%;
+  padding: 18px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Faux status bar (mobile mock) */
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: rgba(229, 231, 235, 0.92);
+  opacity: 0.95;
+  padding: 2px 2px 0;
+}
+
+.status .icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(229, 231, 235, 0.9);
+}
+
+.pill {
+  border-radius: var(--radius-pill);
+  padding: 6px 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.progress-top {
+  height: 10px;
+  width: 56%;
+  border-radius: var(--radius-pill);
+  background: rgba(124, 58, 237, 0.25);
+  border: 1px solid rgba(124, 58, 237, 0.35);
+  margin: 0 auto;
+  overflow: hidden;
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.24);
+}
+
+.progress-top .fill {
+  height: 100%;
+  width: 55%;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(90deg, rgba(124, 58, 237, 0.25), var(--violet));
+  box-shadow: 0 0 18px rgba(124, 58, 237, 0.45);
+}
+
+.badges {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.badge {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: var(--radius-pill);
+  padding: 10px 12px;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.badge.neutral {
+  background: rgba(24, 24, 27, 0.75);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  color: rgba(229, 231, 235, 0.7);
+}
+
+.badge.neutral svg {
+  color: rgba(154, 164, 178, 0.9);
+}
+
+.badge.orange {
+  background: rgba(255, 122, 0, 0.16);
+  border: 1px solid rgba(255, 122, 0, 0.32);
+  color: var(--orange);
+  box-shadow: 0 10px 28px rgba(255, 122, 0, 0.18);
+}
+
+.badge.orange svg {
+  color: var(--orange);
+}
+
+.card {
+  background: radial-gradient(900px 500px at 30% 0%, rgba(124, 58, 237, 0.22), transparent 55%),
+    linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid rgba(124, 58, 237, 0.26);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+  padding: 18px 16px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--orange);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.hint svg {
+  color: var(--orange);
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.35));
+}
+
+.timerWrap {
+  margin-top: 14px;
+  display: grid;
+  place-items: center;
+}
+
+.ring {
+  width: 126px;
+  height: 126px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.ring svg {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-90deg);
+}
+
+.ring .bg {
+  stroke: rgba(255, 122, 0, 0.16);
+}
+
+.ring .fg {
+  stroke: var(--orange);
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.35));
+}
+
+.count {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.92);
+  text-shadow: 0 0 14px rgba(255, 122, 0, 0.25), 0 0 26px rgba(124, 58, 237, 0.2);
+}
+
+.qTitle {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 14px rgba(255, 122, 0, 0.18);
+}
+
+.qSub {
+  margin-top: 6px;
+  text-align: center;
+  font-size: 13px;
+  color: rgba(154, 164, 178, 0.95);
+}
+
+.qText {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.45;
+  color: rgba(229, 231, 235, 0.95);
+  padding: 0 10px;
+}
+
+.answers {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ans {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(154, 164, 178, 0.22);
+  background: rgba(17, 24, 39, 0.4);
+  color: rgba(154, 164, 178, 0.95);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+}
+
+.ans .icon {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.ans.unselected svg {
+  color: rgba(154, 164, 178, 0.9);
+}
+
+.ans.correct {
+  border-color: rgba(34, 197, 94, 0.55);
+  background: rgba(34, 197, 94, 0.12);
+  color: rgba(34, 197, 94, 0.98);
+  box-shadow: 0 14px 28px rgba(34, 197, 94, 0.12);
+}
+
+.ans.correct svg {
+  color: rgba(34, 197, 94, 0.98);
+  filter: drop-shadow(0 0 10px rgba(34, 197, 94, 0.22));
+}
+
+.ans.wrong {
+  border-color: rgba(255, 122, 0, 0.55);
+  background: rgba(255, 122, 0, 0.12);
+  color: rgba(255, 122, 0, 0.98);
+  box-shadow: 0 14px 28px rgba(255, 122, 0, 0.12);
+}
+
+.ans.wrong svg {
+  color: rgba(255, 122, 0, 0.98);
+  filter: drop-shadow(0 0 10px rgba(255, 122, 0, 0.22));
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.next {
+  width: 100%;
+  height: 56px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, var(--orange-2), var(--orange));
+  color: #120a00;
+  box-shadow: 0 14px 30px rgba(255, 122, 0, 0.28);
+}
+
+.next:active {
+  transform: translateY(1px);
+}
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+

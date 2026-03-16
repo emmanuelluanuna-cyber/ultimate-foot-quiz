@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Neon Sports Quiz UI</title>
+    <link rel="stylesheet" href="./neon-ui.css" />
+  </head>
+  <body>
+    <main class="phone" aria-label="Sports quiz (neon dark UI)">
+      <!-- Mock status bar -->
+      <div class="status" aria-hidden="true">
+        <div>9:41</div>
+        <div class="icons">
+          <!-- signal -->
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 11h2V7H1v4Zm4 0h2V5H5v6Zm4 0h2V3H9v8Zm4 0h2V1h-2v10Z" fill="currentColor" opacity="0.9"/>
+          </svg>
+          <!-- wifi -->
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 10.4l2.1-2.1a3 3 0 0 0-4.2 0L8 10.4Z" fill="currentColor" opacity="0.9"/>
+            <path d="M3.8 6.1a6 6 0 0 1 8.4 0l1.1-1.1a7.6 7.6 0 0 0-10.6 0l1.1 1.1Z" fill="currentColor" opacity="0.7"/>
+            <path d="M1.3 3.6a9.6 9.6 0 0 1 13.4 0l1-1a11 11 0 0 0-15.4 0l1 1Z" fill="currentColor" opacity="0.5"/>
+          </svg>
+          <!-- battery -->
+          <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.5 4.2V7.8h.9c.3 0 .6-.3.6-.6V4.8c0-.3-.3-.6-.6-.6h-.9Z" fill="currentColor" opacity="0.9"/>
+            <rect x="1" y="2" width="16.8" height="8" rx="2" stroke="currentColor" opacity="0.9"/>
+            <rect x="2.6" y="3.6" width="12.4" height="4.8" rx="1.4" fill="currentColor" opacity="0.9"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Violet progress bar -->
+      <div class="progress-top" aria-label="Progress (top)">
+        <div class="fill"></div>
+      </div>
+
+      <!-- Badges -->
+      <div class="badges" aria-label="Info badges">
+        <div class="badge neutral">
+          <!-- profile icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 12a4.2 4.2 0 1 0 0-8.4A4.2 4.2 0 0 0 12 12Z" stroke="currentColor" stroke-width="2" opacity="0.9"/>
+            <path d="M4.5 20.4c1.7-3.7 5.1-5.4 7.5-5.4s5.8 1.7 7.5 5.4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+          </svg>
+          <span>1 of 10</span>
+        </div>
+
+        <div class="badge orange">
+          <!-- crown icon -->
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 8l4.2 4.3L12 6l3.8 6.3L20 8l-1.4 12H5.4L4 8Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>1 of 10</span>
+        </div>
+      </div>
+
+      <!-- Main question card -->
+      <section class="card" aria-label="Question card">
+        <div class="hint" aria-label="Hint">
+          <!-- bulb icon -->
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 21h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M10 18h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            <path d="M8.5 10.2a3.5 3.5 0 1 1 7 0c0 1.4-.8 2.2-1.6 3-.8.8-1.4 1.5-1.4 2.8h-1c0-1.3-.6-2-1.4-2.8-.8-.8-1.6-1.6-1.6-3Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <span>Hint</span>
+        </div>
+
+        <div class="timerWrap" aria-label="Timer">
+          <div class="ring" role="img" aria-label="Countdown timer 20 seconds">
+            <svg viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="bg" cx="60" cy="60" r="46" stroke-width="10" fill="none" />
+              <!-- 75% ring as sample -->
+              <circle
+                class="fg"
+                cx="60"
+                cy="60"
+                r="46"
+                stroke-width="10"
+                fill="none"
+                stroke-linecap="round"
+                stroke-dasharray="289"
+                stroke-dashoffset="72"
+              />
+            </svg>
+            <div class="count">20</div>
+          </div>
+        </div>
+
+        <div class="qTitle">Question 01</div>
+        <div class="qSub">Sports Quiz</div>
+        <div class="qText">“What is the most popular sport throught the world?”</div>
+
+        <div class="answers" aria-label="Answer choices">
+          <div class="ans correct">
+            <div class="icon" aria-hidden="true">
+              <!-- check -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 7L10 17l-4-4" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div>Soccer</div>
+          </div>
+
+          <div class="ans unselected">
+            <div class="icon" aria-hidden="true">
+              <!-- circle -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="2.2" opacity="0.95"/>
+              </svg>
+            </div>
+            <div>Basketball</div>
+          </div>
+
+          <div class="ans unselected">
+            <div class="icon" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="7" stroke="currentColor" stroke-width="2.2" opacity="0.95"/>
+              </svg>
+            </div>
+            <div>Cricket</div>
+          </div>
+
+          <div class="ans wrong">
+            <div class="icon" aria-hidden="true">
+              <!-- X -->
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 7l10 10M17 7L7 17" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div>Badminton</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer" aria-label="Footer actions">
+        <button class="next" type="button" aria-label="Next question">Next</button>
+      </footer>
+    </main>
+  </body>
+</html>
+
